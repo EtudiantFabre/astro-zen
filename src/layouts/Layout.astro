@@ -3,6 +3,7 @@ import Header from "@components/Header.astro";
 import { Font } from "astro:assets";
 import { SITE_CONFIG } from "@config";
 import Footer from "@components/Footer.astro";
+import Analytics from "@vercel/analytics/astro";
 
 const {
   title,
@@ -44,6 +45,7 @@ const ogImgUrl = canonicalURL + socialImage;
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImgUrl} />
+    <Analytics />
   </head>
   <body class="bg-black font-sans">
     <Header siteLogo={siteLogo} navLinks={navLinks} />
