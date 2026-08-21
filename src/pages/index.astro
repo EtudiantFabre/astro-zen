@@ -4,6 +4,8 @@ import Hero from "@components/Hero.astro";
 import Layout from "@layouts/Layout.astro";
 import Experience from "@components/Experience.astro";
 import Projects from "@components/Projects.astro";
+import Skills from "@components/Skills.astro";
+import Education from "@components/Education.astro";
 import About from "@components/About.astro";
 
 import "../styles/global.css";
@@ -13,5 +15,7 @@ import "../styles/global.css";
   <Hero {...SITE_CONTENT.hero} />
   <Experience experience={SITE_CONTENT.experience} />
   <Projects projects={SITE_CONTENT.projects} />
+  <Skills skills={SITE_CONTENT.skills} />
+  <Education education={SITE_CONTENT.education} />
   <About {...SITE_CONTENT.about} name={SITE_CONTENT.hero.name} />
 </Layout>
