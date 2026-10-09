@@ -1,0 +1,23 @@
+{
+  "name": "Toyi Fabrice",
+  "author": "Toyi Fabrice Anènafoua",
+  "email": "fabricetoyi87@gmail.com",
+  "phone": "+228 70 83 91 69",
+  "whatsapp": "22870839169",
+  "currency": "FCFA",
+  "siteUrl": "https://fabricetoyi.dev",
+  "logo": "/profile-small.jpg",
+  "socialImage": "/og-image.png",
+  "youtube": {
+    "url": "https://www.youtube.com/@developpeurtaf",
+    "channelId": "UC9H0uvq-93Bbf1hJJ5mJa8A",
+    "subscribers": 3100
+  },
+  "socialLinks": [
+    { "text": "Github", "href": "https://github.com/EtudiantFabre" },
+    { "text": "LinkedIn", "href": "https://www.linkedin.com/in/fabrice-toyi-247503210/" },
+    { "text": "Youtube", "href": "https://www.youtube.com/@developpeurtaf" },
+    { "text": "Twitter", "href": "https://x.com/FabriceTAF" },
+    { "text": "Newsletter", "href": "https://developpeurtaf.substack.com/" }
+  ]
+}

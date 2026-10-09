@@ -1,17 +1,15 @@
 ---
 import Section from "./Section.astro";
-import type { EducationProps } from "@types";
+import type { EducationContent } from "@types";
 
-interface Props {
-  education: EducationProps[];
-}
+type Props = EducationContent;
 
-const { education } = Astro.props;
+const { title, items } = Astro.props;
 ---
 
-<Section text="Formation" href="education">
+<Section text={title} href="education">
   {
-    education.map(({ school, degree, startDate, endDate, summary }) => (
+    items.map(({ school, degree, startDate, endDate, summary }) => (
       <div class="mb-10">
         <h3 class="mb-1.5 font-serif text-2xl font-semibold text-white">
           {school}

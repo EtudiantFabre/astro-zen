@@ -1,18 +1,22 @@
 ---
 import Section from "./Section.astro";
 import { Image } from "astro:assets";
-import type { ProjectProps } from "@types";
+import { getContent, getUi } from "@i18n";
+import { fillVariables } from "@lib/format";
+import type { Locale } from "@types";
 
 interface Props {
-  projects: ProjectProps[];
+  locale: Locale;
 }
 
-const { projects } = Astro.props;
+const { locale } = Astro.props;
+const { title, items } = getContent(locale).projects;
+const t = getUi(locale).projects;
 ---
 
-<Section text="Projets" href="projects">
+<Section text={title} href="projects">
   {
-    projects.map(({ name, summary, image, linkPreview, linkSource }, index) => {
+    items.map(({ name, summary, image, linkPreview, linkSource }, index) => {
       const top = 98 + index * 40;
       return (
         <div
@@ -24,30 +28,30 @@ const { projects } = Astro.props;
               <h3 class="mb-5 font-serif text-3xl font-medium text-primary">
                 {name}
               </h3>
-              <p class="text-base text-neutral">{summary}</p>
+              <p class="text-base text-neutral">
+                {fillVariables(summary, locale)}
+              </p>
               <div class="mt-auto flex gap-5 pt-8 text-white">
-                {
-                  linkSource && (
-                    <a
-                      href={linkSource}
-                      target="_blank"
-                      class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                    >
-                      Code source
-                    </a>
-                  )
-                }
-                {
-                  linkPreview && (
-                    <a
-                      href={linkPreview}
-                      target="_blank"
-                      class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                    >
-                      Aperçu
-                    </a>
-                  )
-                }
+                {linkSource && (
+                  <a
+                    href={linkSource}
+                    target="_blank"
+                    rel="noopener"
+                    class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
+                  >
+                    {t.source}
+                  </a>
+                )}
+                {linkPreview && (
+                  <a
+                    href={linkPreview}
+                    target="_blank"
+                    rel="noopener"
+                    class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
+                  >
+                    {t.preview}
+                  </a>
+                )}
               </div>
             </div>
             <div class="flex items-end justify-end overflow-hidden">

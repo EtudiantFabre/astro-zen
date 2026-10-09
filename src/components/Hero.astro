@@ -1,40 +1,65 @@
 ---
-import type { HeroProps } from "@types";
-type Props = HeroProps;
+import { settings, getContent } from "@i18n";
+import { formatSubscribers, whatsappLink } from "@lib/format";
+import type { Locale } from "@types";
 
-const { name, specialty, summary, email, phone } = Astro.props;
-const telHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : null;
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { hero, proofs } = getContent(locale).home;
+
+// La preuve « abonnés YouTube » est toujours en tête, alimentée par les réglages
+const proofItems = [
+  { value: formatSubscribers(locale), label: proofs.subscribersLabel },
+  ...proofs.items,
+];
 ---
 
-<section class="py-24 md:py-32" id="#hero">
+<section class="pt-20 pb-16 md:pt-28" id="hero">
   <h1
     class="mb-1.5 font-serif text-7xl font-bold tracking-tightest text-white sm:text-8xl md:mb-0 md:text-9xl"
   >
-    {name}
+    {settings.name}
   </h1>
   <p
-    class="mb-9 font-serif text-4xl leading-11.5 font-bold tracking-tighter text-primary sm:text-5xl md:text-6xl"
+    class="mb-8 font-serif text-4xl leading-11.5 font-bold tracking-tighter text-primary sm:text-5xl md:text-6xl"
   >
-    {specialty}
+    {hero.specialty}
   </p>
-  <p class="mb-16 text-base font-normal text-neutral md:text-lg">
-    {summary}
+  <p class="mb-5 font-serif text-2xl font-semibold text-white md:text-3xl">
+    {hero.headline}
+  </p>
+  <p class="mb-12 text-base font-normal text-neutral md:text-lg">
+    {hero.summary}
   </p>
 
-  <div class="flex flex-wrap items-center gap-4">
+  <div class="mb-14 flex flex-wrap items-center gap-4">
     <a
-      class="inline-block rounded-full bg-primary px-8 py-5 text-sm leading-5 font-medium text-[#fff]"
-      href={`mailto:${email}`}>Me contacter</a
+      class="inline-block rounded-full bg-primary px-8 py-5 text-sm leading-5 font-medium text-[#fff] transition-opacity hover:opacity-90"
+      href="#services">{hero.primaryCta}</a
     >
-    {
-      telHref && (
-        <a
-          class="inline-block rounded-full border border-neutral/40 px-8 py-5 text-sm leading-5 font-medium text-white hover:border-primary hover:text-primary"
-          href={telHref}
-        >
-          {phone}
-        </a>
-      )
-    }
+    <a
+      class="inline-block rounded-full border border-neutral/40 px-8 py-5 text-sm leading-5 font-medium text-white hover:border-primary hover:text-primary"
+      href={whatsappLink(hero.whatsappMessage)}
+      target="_blank"
+      rel="noopener"
+    >
+      {hero.secondaryCta}
+    </a>
   </div>
+
+  <ul class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    {
+      proofItems.map(({ value, label }) => (
+        <li class="rounded-2xl border border-neutral/20 bg-[#1c232d]/85 px-4 py-4">
+          <span class="block font-serif text-3xl font-bold text-white">
+            {value}
+          </span>
+          <span class="text-xs text-neutral">{label}</span>
+        </li>
+      ))
+    }
+  </ul>
 </section>

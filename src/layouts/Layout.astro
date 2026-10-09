@@ -1,28 +1,47 @@
 ---
 import Header from "@components/Header.astro";
-import { Font } from "astro:assets";
-import { SITE_CONFIG } from "@config";
 import Footer from "@components/Footer.astro";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import MobileCta from "@components/MobileCta.astro";
+import { Font } from "astro:assets";
+import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { LOCALES, DEFAULT_LOCALE, settings, getContent } from "@i18n";
+import type { Locale } from "@types";
 
-const {
-  title,
-  description,
-  siteLogo,
-  navLinks,
-  lang,
-  author,
-  socialLinks,
-  socialImage,
-  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
-} = SITE_CONFIG;
+import "../styles/global.css";
 
-const ogImgUrl = canonicalURL + socialImage;
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { title, description } = getContent(locale).home.seo;
+const { author, socialImage, siteUrl, name, email, socialLinks } = settings;
+
+const canonicalURL = getAbsoluteLocaleUrl(locale, "");
+const ogImgUrl = new URL(socialImage, siteUrl).href;
+
+// Données structurées (SEO) : profil de la personne
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: author,
+  alternateName: name,
+  url: siteUrl,
+  email: `mailto:${email}`,
+  jobTitle: getContent(locale).home.hero.specialty,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Lomé",
+    addressCountry: "TG",
+  },
+  sameAs: socialLinks.map(({ href }) => href),
+};
 ---
 
 <!doctype html>
-<html lang={lang} class="scroll-pt-16 scroll-smooth">
+<html lang={locale} class="scroll-pt-24 scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -30,12 +49,26 @@ const ogImgUrl = canonicalURL + socialImage;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonicalURL} />
+    {
+      LOCALES.map((l) => (
+        <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l, "")} />
+      ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={getAbsoluteLocaleUrl(DEFAULT_LOCALE, "")}
+    />
+    <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
     <Font cssVariable="--font-gabarito" preload />
     <Font cssVariable="--font-be-vietnam-pro" preload />
 
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locale === "fr" ? "fr_FR" : "en_US"} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -48,12 +81,19 @@ const ogImgUrl = canonicalURL + socialImage;
     <meta property="twitter:image" content={ogImgUrl} />
     <Analytics />
     <SpeedInsights />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
   </head>
-  <body class="bg-black font-sans">
-    <Header siteLogo={siteLogo} navLinks={navLinks} />
+  <body class="bg-black pb-20 font-sans md:pb-0">
+    <Header locale={locale} />
     <main class="mx-auto max-w-3xl px-5">
       <slot />
     </main>
-    <Footer author={author} socialLinks={socialLinks} />
+    <Footer locale={locale} />
+    <MobileCta locale={locale} />
   </body>
 </html>

@@ -1,0 +1,14 @@
+{
+  "title": "Skills",
+  "items": [
+    { "category": "Languages", "items": ["Python", "PHP", "JavaScript / TypeScript", "Dart", "Java", "Bash", "HTML / CSS"] },
+    { "category": "Frameworks", "items": ["Laravel", "Django", "Vue.js", "Next.js", "Node.js", "Flutter"] },
+    { "category": "Databases", "items": ["PostgreSQL", "MySQL", "MongoDB", "Firebase", "Neon", "Supabase"] },
+    {
+      "category": "DevOps & Tools",
+      "items": ["Git / GitHub Actions", "REST APIs", "UML", "Tailwind CSS", "Bootstrap", "Deployment (o2switch, Plesk, Heroku, Laravel Cloud, Vercel, Render)"]
+    },
+    { "category": "AI", "items": ["Designing and orchestrating AI agents in Python", "Claude Code"] },
+    { "category": "Languages spoken", "items": ["French (native)", "English (intermediate)"] }
+  ]
+}

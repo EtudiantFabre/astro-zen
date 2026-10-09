@@ -1,0 +1,71 @@
+{
+  "title": "Services",
+  "intro": "Tu as un projet à lancer, un code à remettre d'aplomb ou une soutenance qui approche ? Voici comment je peux t'aider concrètement.",
+  "items": [
+    {
+      "title": "Review de code",
+      "description": "J'analyse ton projet et te livre des retours concrets et priorisés pour le rendre professionnel.",
+      "points": [
+        "Architecture et organisation du code",
+        "Propreté, lisibilité et bonnes pratiques",
+        "Sécurité et performances : les points critiques",
+        "Rapport écrit + échange de 30 min"
+      ],
+      "price": 15000,
+      "priceFrom": true,
+      "priceSuffix": "",
+      "featured": false,
+      "cta": "Réserver une review",
+      "whatsappMessage": "Bonjour Fabrice, je souhaite une review de code pour mon projet."
+    },
+    {
+      "title": "Aide projet étudiant",
+      "description": "Pour les étudiants (IPNET, ESGIS, Université de Lomé, Université de Kara…) : un projet propre et une soutenance réussie.",
+      "points": [
+        "Structuration du projet et choix techniques",
+        "Nettoyage et correction du code",
+        "Préparation de la soutenance (démo, questions du jury)",
+        "Explications pour que tu maîtrises ton projet"
+      ],
+      "price": 10000,
+      "priceFrom": true,
+      "priceSuffix": "",
+      "featured": true,
+      "cta": "Préparer ma soutenance",
+      "whatsappMessage": "Bonjour Fabrice, je suis étudiant(e) et j'ai besoin d'aide pour mon projet / ma soutenance."
+    },
+    {
+      "title": "Coaching technique 1h",
+      "description": "Une session en visio pour débloquer un problème ou monter en compétence rapidement.",
+      "points": [
+        "Laravel, Django, Python",
+        "IA appliquée et agents (Claude Code…)",
+        "Architecture et bonnes pratiques",
+        "Questions/réponses sur ton propre code"
+      ],
+      "price": 10000,
+      "priceFrom": false,
+      "priceSuffix": "/ heure",
+      "featured": false,
+      "cta": "Réserver un coaching",
+      "whatsappMessage": "Bonjour Fabrice, je souhaite réserver une session de coaching d'1h."
+    },
+    {
+      "title": "Développement sur mesure",
+      "description": "Je conçois et livre ton application de A à Z : analyse, développement, déploiement et suivi.",
+      "points": [
+        "Applications web et SaaS",
+        "API REST et intégrations (paiement, SMS…)",
+        "Tableaux de bord et back-offices",
+        "Déploiement et mise en production"
+      ],
+      "price": null,
+      "priceFrom": false,
+      "priceSuffix": "",
+      "featured": false,
+      "cta": "Discutons de ton projet",
+      "whatsappMessage": "Bonjour Fabrice, j'aimerais discuter d'un projet de développement sur mesure."
+    }
+  ],
+  "note": "Paiement possible par Mobile Money (Flooz, T-Money) ou virement. Tarifs indicatifs, ajustés selon la taille du projet."
+}

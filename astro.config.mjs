@@ -5,6 +5,13 @@ import { fontProviders } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://fabricetoyi.dev",
+  // Français à la racine (/), anglais sous /en/
+  i18n: {
+    locales: ["fr", "en"],
+    defaultLocale: "fr",
+    routing: { prefixDefaultLocale: false },
+  },
   fonts: [
     {
       provider: fontProviders.fontsource(),

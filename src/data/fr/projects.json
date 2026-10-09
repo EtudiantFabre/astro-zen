@@ -1,0 +1,29 @@
+{
+  "title": "Projets",
+  "items": [
+    {
+      "name": "MicroAts",
+      "summary": "SaaS d'aide au recrutement (ATS) conçu, développé et déployé en solo, de bout en bout : pipeline de candidats, tri assisté par IA, gestion des offres et des équipes. Front-end, back-end, base de données, CI/CD et hébergement définis de A à Z en tant que développeur-fondateur.",
+      "image": "/micro-ats.png",
+      "linkPreview": "https://micro-ats.com"
+    },
+    {
+      "name": "Bizzcart Finance AI",
+      "summary": "Plateforme d'intelligence financière : suivi de cours en temps réel, analyse de sentiment social multi-plateformes et prédictions assistées par IA, le tout dans un tableau de bord multilingue (FR/EN) et multi-devises.",
+      "image": "/bizzcart.png",
+      "linkPreview": "https://bizzcart.com"
+    },
+    {
+      "name": "SMS.TG",
+      "summary": "Plateforme SaaS d'envoi de SMS au Togo : campagnes marketing, notifications et OTP via intégration des API opérateurs (YAS, MOOV), avec quotas, statistiques et facturation. Réalisée chez Itplex-Consult.",
+      "image": "/sms-tg.png",
+      "linkPreview": "https://sms.tg"
+    },
+    {
+      "name": "Chaîne YouTube — developpeurtaf",
+      "summary": "Chaîne tech de vulgarisation du développement web et mobile (Python, Django, Laravel, PostgreSQL…), réunissant plus de {subscribers} abonnés et 200+ vidéos.",
+      "image": "/youtube.png",
+      "linkPreview": "https://www.youtube.com/@developpeurtaf"
+    }
+  ]
+}

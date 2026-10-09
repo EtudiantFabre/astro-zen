@@ -1,0 +1,22 @@
+{
+  "seo": {
+    "title": "Toyi Fabrice — Développeur Full-Stack & Formateur (Laravel, Django, IA)",
+    "description": "Développeur Full-Stack basé à Lomé (Togo) : applications web, SaaS et API sur mesure avec Laravel, Django, Vue.js et Next.js. Review de code, coaching, aide aux projets étudiants et formations."
+  },
+  "hero": {
+    "specialty": "Développeur Full-Stack & Formateur",
+    "headline": "J'aide les entreprises et les développeurs à livrer des projets concrets.",
+    "summary": "Applications web, SaaS et API avec Laravel, Django, Vue.js et Next.js — de l'idée à la mise en production. J'accompagne aussi étudiants et développeurs pour progresser vite : review de code, coaching et formations.",
+    "primaryCta": "Voir mes services",
+    "secondaryCta": "Discutons sur WhatsApp",
+    "whatsappMessage": "Bonjour Fabrice, j'ai vu ton portfolio et j'aimerais discuter d'un projet."
+  },
+  "proofs": {
+    "subscribersLabel": "abonnés sur YouTube",
+    "items": [
+      { "value": "200+", "label": "vidéos tutoriels" },
+      { "value": "6+", "label": "projets livrés en production" },
+      { "value": "3+ ans", "label": "d'expérience Full-Stack" }
+    ]
+  }
+}

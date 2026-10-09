@@ -1,0 +1,17 @@
+{
+  "title": "Education",
+  "items": [
+    {
+      "school": "Knowbridge University Institute — Sokodé",
+      "degree": "Master's in Computer Science (in progress)",
+      "startDate": "Aug. 2026",
+      "endDate": "Present"
+    },
+    {
+      "school": "IFNTI — Sokodé",
+      "degree": "Bachelor's in Computer Science",
+      "startDate": "2020",
+      "endDate": "2024"
+    }
+  ]
+}

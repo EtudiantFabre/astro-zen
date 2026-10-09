@@ -1,0 +1,47 @@
+{
+  "title": "Expérience",
+  "items": [
+    {
+      "company": "Knowbridge University",
+      "position": "Développeur Full-Stack Laravel & Formateur",
+      "startDate": "Nov. 2025",
+      "endDate": "Aujourd'hui",
+      "highlights": [
+        "Sollicité par les partenaires de l'université pour des projets digitaux, j'ai livré des applications web de l'analyse des besoins à la mise en production, réduisant les délais de livraison.",
+        "Conçu et développé le site officiel ainsi que les applications mobiles internes, en pilotant le design technique et l'implémentation complète.",
+        "Formé les étudiants au développement logiciel (cours et encadrement de projets), renforçant leur autonomie technique."
+      ]
+    },
+    {
+      "company": "Itplex-Consult",
+      "position": "Développeur Full-Stack Django",
+      "startDate": "Fév. 2025",
+      "endDate": "Nov. 2025",
+      "highlights": [
+        "Responsable de la plateforme SaaS SMS.TG : conçu un système de campagnes avec intégration des API opérateurs (YAS, MOOV) permettant l'envoi et le suivi des livraisons en temps réel.",
+        "Développé la gestion des clients, quotas, statistiques et facturation, centralisant tout le cycle de campagne dans une seule interface.",
+        "Sécurisé les flux de données et implémenté une authentification à double facteur (2FA), renforçant la protection des comptes clients."
+      ]
+    },
+    {
+      "company": "ADI-Elite",
+      "position": "Développeur Full-Stack Laravel",
+      "startDate": "Oct. 2024",
+      "endDate": "Déc. 2024",
+      "highlights": [
+        "Développé une application web de gestion et d'analyse des données scolaires pour faciliter le suivi des performances académiques.",
+        "Exposé les données via une API RESTful Laravel consommée par une application mobile, avec gestion des utilisateurs, rôles et permissions.",
+        "Livré une interface réactive Blade + Tailwind CSS assurant une expérience utilisateur fluide."
+      ]
+    },
+    {
+      "company": "RGPL Gabon",
+      "position": "Développeur Full-Stack Laravel — Freelance (à distance)",
+      "startDate": "Jan. 2024",
+      "endDate": "Août 2024",
+      "highlights": [
+        "Conçu et livré en autonomie complète une application web de gestion des données personnelles conforme au RGPD, adaptée au contexte réglementaire gabonais — de l'architecture au déploiement."
+      ]
+    }
+  ]
+}

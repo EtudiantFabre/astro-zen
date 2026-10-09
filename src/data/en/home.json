@@ -1,0 +1,22 @@
+{
+  "seo": {
+    "title": "Toyi Fabrice — Full-Stack Developer & Trainer (Laravel, Django, AI)",
+    "description": "Full-Stack developer based in Lomé, Togo: custom web apps, SaaS and APIs with Laravel, Django, Vue.js and Next.js. Code reviews, coaching, student project support and courses."
+  },
+  "hero": {
+    "specialty": "Full-Stack Developer & Trainer",
+    "headline": "I help companies and developers ship real, working projects.",
+    "summary": "Web apps, SaaS and APIs with Laravel, Django, Vue.js and Next.js — from idea to production. I also help students and developers level up fast: code reviews, coaching and courses.",
+    "primaryCta": "See my services",
+    "secondaryCta": "Chat on WhatsApp",
+    "whatsappMessage": "Hi Fabrice, I saw your portfolio and I'd like to discuss a project."
+  },
+  "proofs": {
+    "subscribersLabel": "YouTube subscribers",
+    "items": [
+      { "value": "200+", "label": "tutorial videos" },
+      { "value": "6+", "label": "projects shipped to production" },
+      { "value": "3+ yrs", "label": "of Full-Stack experience" }
+    ]
+  }
+}

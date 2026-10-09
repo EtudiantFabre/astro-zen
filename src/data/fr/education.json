@@ -1,0 +1,17 @@
+{
+  "title": "Parcours académique",
+  "items": [
+    {
+      "school": "Knowbridge University Institute — Sokodé",
+      "degree": "Master en Informatique (en cours)",
+      "startDate": "Août 2026",
+      "endDate": "Aujourd'hui"
+    },
+    {
+      "school": "IFNTI — Sokodé",
+      "degree": "Licence en Informatique",
+      "startDate": "2020",
+      "endDate": "2024"
+    }
+  ]
+}

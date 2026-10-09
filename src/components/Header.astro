@@ -1,42 +1,46 @@
 ---
 import Menu from "@icons/Menu.astro";
 import { Image } from "astro:assets";
-import type { HeaderProps } from "@types";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { LOCALES, settings, getUi } from "@i18n";
+import type { Locale } from "@types";
 
-type Props = HeaderProps;
+interface Props {
+  locale: Locale;
+}
 
-const { siteLogo, navLinks } = Astro.props;
+const { locale } = Astro.props;
+const t = getUi(locale);
+
+const navLinks = [
+  { text: t.nav.home, href: "#hero" },
+  { text: t.nav.services, href: "#services" },
+  { text: t.nav.resources, href: "#resources" },
+  { text: t.nav.projects, href: "#projects" },
+  { text: t.nav.youtube, href: "#youtube" },
+  { text: t.nav.contact, href: "#contact" },
+];
 ---
 
 <header
-  class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in justify-between bg-black px-5 py-6"
+  class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in items-center justify-between gap-4 bg-black px-5 py-6"
 >
-  <a href="/" aria-label="Home link">
+  <a href={getRelativeLocaleUrl(locale, "")} aria-label={t.header.homeLink}>
     <Image
       class="rounded-full"
-      src={siteLogo}
+      src={settings.logo}
       width="45"
       height="45"
-      alt="website logo"
+      alt={settings.name}
       priority
     />
   </a>
 
-  <button
-    type="button"
-    id="menu-button"
-    class="px-1.5 text-neutral sm:hidden"
-    aria-expanded="false"
-    aria-controls="main-menu"
-  >
-    <Menu />
-  </button>
-
   <nav
-    class="absolute top-20 right-5 hidden rounded-xl border border-neutral/40 bg-black px-4 py-5 text-neutral sm:static sm:block sm:border-0 sm:bg-transparent sm:p-0"
+    class="absolute top-20 right-5 hidden rounded-xl border border-neutral/40 bg-black px-4 py-5 text-neutral lg:static lg:block lg:border-0 lg:bg-transparent lg:p-0"
     id="main-menu"
   >
-    <ul class="gap-2 sm:flex">
+    <ul class="gap-1 lg:flex">
       {
         navLinks.map((link) => (
           <li class="relative">
@@ -51,6 +55,52 @@ const { siteLogo, navLinks } = Astro.props;
       }
     </ul>
   </nav>
+
+  <div class="flex items-center gap-3">
+    <div
+      class="flex items-center text-xs font-medium text-neutral"
+      role="group"
+      aria-label={t.header.switchLanguage}
+    >
+      {
+        LOCALES.map((l, i) => (
+          <>
+            {i > 0 && <span class="text-neutral/40">|</span>}
+            <a
+              href={getRelativeLocaleUrl(l, "")}
+              hreflang={l}
+              lang={l}
+              aria-current={l === locale ? "true" : undefined}
+              class:list={[
+                "px-1.5 py-2 uppercase hover:text-white",
+                l === locale && "text-primary",
+              ]}
+            >
+              {l}
+            </a>
+          </>
+        ))
+      }
+    </div>
+
+    <a
+      href="#contact"
+      class="hidden rounded-full bg-primary px-5 py-2.5 text-xs font-medium text-[#fff] transition-opacity hover:opacity-90 md:inline-block"
+    >
+      {t.header.cta}
+    </a>
+
+    <button
+      type="button"
+      id="menu-button"
+      class="px-1.5 text-neutral lg:hidden"
+      aria-expanded="false"
+      aria-controls="main-menu"
+      aria-label={t.header.openMenu}
+    >
+      <Menu />
+    </button>
+  </div>
 </header>
 
 <script>
@@ -67,41 +117,33 @@ const { siteLogo, navLinks } = Astro.props;
 
   button?.addEventListener("click", toggleMenu);
   navItems.forEach((item) => {
-    item?.addEventListener("click", toggleMenu);
+    item?.addEventListener("click", () => {
+      if (button?.getAttribute("aria-expanded") === "true") toggleMenu();
+    });
   });
 
-  // Update navigation based on scroll position with Intersection Observer
+  // Met en évidence le lien de la section qui traverse le milieu de l'écran
+  // (fonctionne aussi pour les sections plus hautes que la fenêtre)
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           navItems.forEach((item) => {
             if (item.getAttribute("href") === `#${entry.target.id}`) {
-              item.classList.add("text-white", "md:after:opacity-100");
+              item.classList.add("text-white", "lg:after:opacity-100");
             } else {
-              item.classList.remove("text-white", "md:after:opacity-100");
+              item.classList.remove("text-white", "lg:after:opacity-100");
             }
           });
         }
       });
     },
-    { threshold: 0.5 },
+    { rootMargin: "-45% 0px -50% 0px" },
   );
 
-  document.querySelectorAll("section").forEach((section) => {
+  document.querySelectorAll("section[id]").forEach((section) => {
     observer.observe(section);
   });
-
-  // Cleanup observer
-  document.onvisibilitychange = () => {
-    if (document.visibilityState === "hidden") {
-      observer.disconnect();
-    } else {
-      document.querySelectorAll("section").forEach((section) => {
-        observer.observe(section);
-      });
-    }
-  };
 </script>
 
 <style>

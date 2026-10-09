@@ -1,0 +1,71 @@
+{
+  "title": "Services",
+  "intro": "Got a project to launch, code to clean up or a final-year defense coming up? Here's how I can help, concretely.",
+  "items": [
+    {
+      "title": "Code review",
+      "description": "I analyze your project and give you concrete, prioritized feedback to make it production-grade.",
+      "points": [
+        "Architecture and code organization",
+        "Cleanliness, readability and best practices",
+        "Security and performance: the critical issues",
+        "Written report + 30-min call"
+      ],
+      "price": 15000,
+      "priceFrom": true,
+      "priceSuffix": "",
+      "featured": false,
+      "cta": "Book a review",
+      "whatsappMessage": "Hi Fabrice, I'd like a code review for my project."
+    },
+    {
+      "title": "Student project support",
+      "description": "For students (IPNET, ESGIS, University of Lomé, University of Kara…): a clean project and a successful defense.",
+      "points": [
+        "Project structure and technical choices",
+        "Code cleanup and fixes",
+        "Defense preparation (demo, jury questions)",
+        "Explanations so you truly master your project"
+      ],
+      "price": 10000,
+      "priceFrom": true,
+      "priceSuffix": "",
+      "featured": true,
+      "cta": "Prepare my defense",
+      "whatsappMessage": "Hi Fabrice, I'm a student and I need help with my project / defense."
+    },
+    {
+      "title": "1-hour tech coaching",
+      "description": "A video session to get unblocked or level up quickly.",
+      "points": [
+        "Laravel, Django, Python",
+        "Applied AI and agents (Claude Code…)",
+        "Architecture and best practices",
+        "Q&A on your own code"
+      ],
+      "price": 10000,
+      "priceFrom": false,
+      "priceSuffix": "/ hour",
+      "featured": false,
+      "cta": "Book a coaching session",
+      "whatsappMessage": "Hi Fabrice, I'd like to book a 1-hour coaching session."
+    },
+    {
+      "title": "Custom development",
+      "description": "I design and ship your application end to end: analysis, development, deployment and support.",
+      "points": [
+        "Web apps and SaaS",
+        "REST APIs and integrations (payments, SMS…)",
+        "Dashboards and back-offices",
+        "Deployment and go-live"
+      ],
+      "price": null,
+      "priceFrom": false,
+      "priceSuffix": "",
+      "featured": false,
+      "cta": "Let's talk about your project",
+      "whatsappMessage": "Hi Fabrice, I'd like to discuss a custom development project."
+    }
+  ],
+  "note": "Payment via Mobile Money (Flooz, T-Money) or bank transfer. Indicative prices, adjusted to the size of the project."
+}
