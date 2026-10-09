@@ -1,6 +1,8 @@
 ---
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import MobileCta from "@components/MobileCta.astro";
 import { Font } from "astro:assets";
 import { getAbsoluteLocaleUrl } from "astro:i18n";
@@ -77,6 +79,8 @@ const jsonLd = {
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImgUrl} />
+    <Analytics />
+    <SpeedInsights />
 
     <script
       is:inline
