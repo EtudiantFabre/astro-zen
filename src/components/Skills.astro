@@ -1,18 +1,16 @@
 ---
 import Section from "./Section.astro";
-import type { SkillGroupProps } from "@types";
+import type { SkillsContent } from "@types";
 
-interface Props {
-  skills: SkillGroupProps[];
-}
+type Props = SkillsContent;
 
-const { skills } = Astro.props;
+const { title, items } = Astro.props;
 ---
 
-<Section text="Compétences" href="skills">
+<Section text={title} href="skills">
   <div class="flex flex-col gap-8">
     {
-      skills.map(({ category, items }) => (
+      items.map(({ category, items }) => (
         <div>
           <h3 class="mb-4 font-serif text-xl font-semibold text-white">
             {category}

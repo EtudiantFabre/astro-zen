@@ -1,0 +1,78 @@
+{
+  "title": "Courses & Resources",
+  "intro": "Courses, guides and starters built to get straight to the point: learn by building real projects.",
+  "items": [
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "Laravel from A to Z",
+      "description": "From your first route to deployment: build a complete application (auth, roles, API, payments) step by step.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, please let me know when the \"Laravel from A to Z\" course is out."
+    },
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "Django + Tailwind",
+      "description": "Build modern, polished Django apps with Tailwind CSS, all the way to production.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, please let me know when the \"Django + Tailwind\" course is out."
+    },
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "AI for developers: Claude Code & Agents",
+      "description": "Code faster and better with AI: Claude Code day to day, building agents in Python, useful automations.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, please let me know when the \"AI for developers\" course is out."
+    },
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "Full-Stack Bundle",
+      "description": "All courses together (Laravel, Django, AI) at a reduced price, to become a job-ready Full-Stack developer.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, I'm interested in the \"Full-Stack Bundle\", please let me know when it's out."
+    },
+    {
+      "type": "ebook",
+      "status": "soon",
+      "title": "Guide: nail your final-year project defense",
+      "description": "Report structure, demo, common jury questions: the complete checklist to defend with confidence.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, please let me know when the project defense guide is out."
+    },
+    {
+      "type": "ebook",
+      "status": "soon",
+      "title": "Guide: deploy your app to production",
+      "description": "Laravel and Django on shared hosting, a VPS or the cloud: the steps, the pitfalls and the best practices.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, please let me know when the deployment guide is out."
+    },
+    {
+      "type": "template",
+      "status": "soon",
+      "title": "Laravel SaaS Starter",
+      "description": "A ready-to-use base: authentication, roles and permissions, dashboard, Tailwind CSS.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, please let me know when the \"Laravel SaaS Starter\" is out."
+    },
+    {
+      "type": "template",
+      "status": "soon",
+      "title": "Django + Tailwind Starter",
+      "description": "A Django project set up with Tailwind, authentication and a clean structure to start in minutes.",
+      "link": "",
+      "cta": "Notify me",
+      "whatsappMessage": "Hi Fabrice, please let me know when the \"Django + Tailwind Starter\" is out."
+    }
+  ]
+}

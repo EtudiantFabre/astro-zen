@@ -1,0 +1,23 @@
+# Reconstruit le site chaque jour pour afficher les dernières vidéos YouTube.
+# Prérequis : créer un Deploy Hook dans Vercel (Settings → Git → Deploy Hooks)
+# et l'enregistrer comme secret GitHub nommé VERCEL_DEPLOY_HOOK_URL.
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # tous les jours à 6h UTC (6h à Lomé)
+  workflow_dispatch: # bouton « Run workflow » pour lancer à la main
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Déclencher un déploiement Vercel
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "Secret VERCEL_DEPLOY_HOOK_URL absent : rien à faire."
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"

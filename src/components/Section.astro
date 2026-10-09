@@ -2,16 +2,21 @@
 interface Props {
   text: string;
   href: string;
+  intro?: string;
 }
 
-const { text, href } = Astro.props;
+const { text, href, intro } = Astro.props;
 ---
 
 <section id={href} class="py-24">
   <h2
-    class="mb-14 font-serif text-4xl font-bold tracking-tighter text-white md:text-5xl"
+    class:list={[
+      "font-serif text-4xl font-bold tracking-tighter text-white md:text-5xl",
+      intro ? "mb-5" : "mb-14",
+    ]}
   >
     {text}
   </h2>
+  {intro && <p class="mb-12 text-base text-neutral md:text-lg">{intro}</p>}
   <slot />
 </section>

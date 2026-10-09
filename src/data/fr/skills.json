@@ -1,0 +1,14 @@
+{
+  "title": "Compétences",
+  "items": [
+    { "category": "Langages", "items": ["Python", "PHP", "JavaScript / TypeScript", "Dart", "Java", "Bash", "HTML / CSS"] },
+    { "category": "Frameworks", "items": ["Laravel", "Django", "Vue.js", "Next.js", "Node.js", "Flutter"] },
+    { "category": "Bases de données", "items": ["PostgreSQL", "MySQL", "MongoDB", "Firebase", "Neon", "Supabase"] },
+    {
+      "category": "DevOps & Outils",
+      "items": ["Git / GitHub Actions", "API REST", "UML", "Tailwind CSS", "Bootstrap", "Déploiement (o2switch, Plesk, Heroku, Laravel Cloud, Vercel, Render)"]
+    },
+    { "category": "IA", "items": ["Conception et orchestration d'agents IA en Python", "Claude Code"] },
+    { "category": "Langues", "items": ["Français (langue maternelle)", "Anglais (intermédiaire)"] }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "title": "Formations & Ressources",
+  "intro": "Des formations, guides et starters pensés pour aller droit au but : apprendre en construisant de vrais projets.",
+  "items": [
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "Laravel de A à Z",
+      "description": "De la première route au déploiement : construis une application complète (auth, rôles, API, paiement) étape par étape.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie de la formation « Laravel de A à Z »."
+    },
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "Django + Tailwind",
+      "description": "Crée des applications Django modernes et soignées avec Tailwind CSS, jusqu'à la mise en production.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie de la formation « Django + Tailwind »."
+    },
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "IA pour développeurs : Claude Code & Agents",
+      "description": "Code plus vite et mieux avec l'IA : Claude Code au quotidien, création d'agents en Python, automatisations utiles.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie de la formation « IA pour développeurs »."
+    },
+    {
+      "type": "formation",
+      "status": "soon",
+      "title": "Pack Full-Stack",
+      "description": "Toutes les formations réunies (Laravel, Django, IA) à prix réduit, pour devenir un développeur Full-Stack opérationnel.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, le « Pack Full-Stack » m'intéresse, préviens-moi à sa sortie."
+    },
+    {
+      "type": "ebook",
+      "status": "soon",
+      "title": "Guide : réussir sa soutenance de projet informatique",
+      "description": "Structure du mémoire, démo, questions fréquentes du jury : la checklist complète pour soutenir sereinement.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie du guide « Réussir sa soutenance »."
+    },
+    {
+      "type": "ebook",
+      "status": "soon",
+      "title": "Guide : déployer son application en production",
+      "description": "Laravel et Django sur un hébergement mutualisé, un VPS ou le cloud : les étapes, les pièges et les bonnes pratiques.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie du guide « Déployer en production »."
+    },
+    {
+      "type": "template",
+      "status": "soon",
+      "title": "Starter Laravel SaaS",
+      "description": "Une base prête à l'emploi : authentification, rôles et permissions, tableau de bord, Tailwind CSS.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie du « Starter Laravel SaaS »."
+    },
+    {
+      "type": "template",
+      "status": "soon",
+      "title": "Starter Django + Tailwind",
+      "description": "Projet Django configuré avec Tailwind, authentification et structure propre pour démarrer en quelques minutes.",
+      "link": "",
+      "cta": "Être prévenu(e)",
+      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie du « Starter Django + Tailwind »."
+    }
+  ]
+}

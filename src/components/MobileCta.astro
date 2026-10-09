@@ -1,0 +1,33 @@
+---
+// Barre d'actions fixée en bas de l'écran, uniquement sur mobile
+import { getContent, getUi } from "@i18n";
+import { whatsappLink } from "@lib/format";
+import type { Locale } from "@types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getUi(locale).mobileCta;
+const { whatsappMessage } = getContent(locale).home.hero;
+---
+
+<div
+  class="fixed inset-x-0 bottom-0 z-40 flex gap-3 border-t border-neutral/20 bg-black/95 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden"
+>
+  <a
+    href="#services"
+    class="flex-1 rounded-full border border-neutral/40 px-4 py-3 text-center text-sm font-medium text-white"
+  >
+    {t.services}
+  </a>
+  <a
+    href={whatsappLink(whatsappMessage)}
+    target="_blank"
+    rel="noopener"
+    class="flex-1 rounded-full bg-primary px-4 py-3 text-center text-sm font-medium text-[#fff]"
+  >
+    {t.whatsapp}
+  </a>
+</div>

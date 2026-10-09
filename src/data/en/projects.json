@@ -1,0 +1,29 @@
+{
+  "title": "Projects",
+  "items": [
+    {
+      "name": "MicroAts",
+      "summary": "Recruitment SaaS (ATS) designed, built and deployed solo, end to end: candidate pipeline, AI-assisted screening, job and team management. Front-end, back-end, database, CI/CD and hosting defined from A to Z as founder-developer.",
+      "image": "/micro-ats.png",
+      "linkPreview": "https://micro-ats.com"
+    },
+    {
+      "name": "Bizzcart Finance AI",
+      "summary": "Financial intelligence platform: real-time market tracking, multi-platform social sentiment analysis and AI-assisted predictions, all in a multilingual (FR/EN), multi-currency dashboard.",
+      "image": "/bizzcart.png",
+      "linkPreview": "https://bizzcart.com"
+    },
+    {
+      "name": "SMS.TG",
+      "summary": "SMS SaaS platform in Togo: marketing campaigns, notifications and OTP through carrier API integrations (YAS, MOOV), with quotas, statistics and billing. Built at Itplex-Consult.",
+      "image": "/sms-tg.png",
+      "linkPreview": "https://sms.tg"
+    },
+    {
+      "name": "YouTube channel — developpeurtaf",
+      "summary": "French-speaking tech channel teaching web and mobile development (Python, Django, Laravel, PostgreSQL…), with more than {subscribers} subscribers and 200+ videos.",
+      "image": "/youtube.png",
+      "linkPreview": "https://www.youtube.com/@developpeurtaf"
+    }
+  ]
+}

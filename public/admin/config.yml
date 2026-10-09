@@ -1,0 +1,328 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.233.0/schema/sveltia-cms.json
+#
+# Configuration de l'admin (Sveltia CMS) — accessible sur https://fabricetoyi.dev/admin/
+# Chaque enregistrement crée un commit sur GitHub → Vercel reconstruit le site (~1 min).
+# Les fichiers édités sont dans src/data/ (un dossier par langue + settings.json).
+
+backend:
+  name: github
+  repo: EtudiantFabre/astro-zen
+  branch: main
+  # Optionnel : connexion « Sign in with GitHub » via un authentificateur OAuth
+  # (https://github.com/sveltia/sveltia-cms-auth). Sans ça, utiliser « Sign In with Token ».
+  # base_url: https://sveltia-cms-auth.<ton-compte>.workers.dev
+
+media_folder: public/uploads
+public_folder: /uploads
+site_url: https://fabricetoyi.dev
+display_url: https://fabricetoyi.dev
+
+output:
+  omit_empty_optional_fields: true
+
+i18n:
+  locales: [fr, en]
+  default_locale: fr
+
+collections:
+  # ───────────────────────── Réglages communs (non traduits) ─────────────────────────
+  - name: settings
+    label: Réglages
+    icon: settings
+    editor: { preview: false }
+    files:
+      - name: general
+        label: Infos perso, contact & réseaux
+        file: src/data/settings.json
+        fields:
+          - { name: name, label: Nom affiché, widget: string }
+          - { name: author, label: "Nom complet (auteur, SEO)", widget: string }
+          - { name: email, label: Email de contact, widget: string }
+          - { name: phone, label: Téléphone affiché, widget: string, hint: "Ex. +228 70 83 91 69" }
+          - name: whatsapp
+            label: Numéro WhatsApp
+            widget: string
+            hint: "Chiffres uniquement, avec l'indicatif pays (ex. 22870839169)"
+            pattern: ['^[0-9]{8,15}$', "Chiffres uniquement, avec l'indicatif (ex. 22870839169)"]
+          - { name: currency, label: Devise des prix, widget: string, hint: "Ex. FCFA, €, $" }
+          - { name: siteUrl, label: URL du site, widget: string }
+          - { name: logo, label: Photo du header, widget: image }
+          - { name: socialImage, label: Image de partage (réseaux sociaux), widget: image }
+          - name: youtube
+            label: Chaîne YouTube
+            widget: object
+            fields:
+              - name: subscribers
+                label: Nombre d'abonnés
+                widget: number
+                value_type: int
+                min: 0
+                hint: "Affiché « 3 100+ ». Utilisable dans les textes avec la variable {subscribers}."
+              - { name: url, label: URL de la chaîne, widget: string }
+              - name: channelId
+                label: ID de la chaîne
+                widget: string
+                hint: "Commence par UC… — sert à récupérer automatiquement les 3 dernières vidéos."
+          - name: socialLinks
+            label: Réseaux sociaux (footer)
+            widget: list
+            summary: "{{text}}"
+            fields:
+              - { name: text, label: Nom, widget: string }
+              - { name: href, label: Lien, widget: string }
+
+  # ───────────────────────── Contenu du site (FR / EN) ─────────────────────────
+  - name: pages
+    label: Contenu du site
+    icon: language
+    i18n: true
+    editor: { preview: false }
+    files:
+      - name: home
+        label: Accueil (SEO, Hero, chiffres clés)
+        file: src/data/{{locale}}/home.json
+        i18n: true
+        fields:
+          - name: seo
+            label: Référencement (Google)
+            widget: object
+            i18n: true
+            fields:
+              - { name: title, label: Titre de la page, widget: string, i18n: true }
+              - name: description
+                label: Meta description
+                widget: text
+                i18n: true
+                hint: "Idéalement 150-160 caractères."
+          - name: hero
+            label: Hero (haut de page)
+            widget: object
+            i18n: true
+            fields:
+              - { name: specialty, label: Spécialité, widget: string, i18n: true }
+              - { name: headline, label: Accroche, widget: string, i18n: true }
+              - { name: summary, label: Résumé, widget: text, i18n: true }
+              - { name: primaryCta, label: Bouton principal (vers Services), widget: string, i18n: true }
+              - { name: secondaryCta, label: Bouton WhatsApp, widget: string, i18n: true }
+              - name: whatsappMessage
+                label: Message WhatsApp pré-rempli
+                widget: text
+                i18n: true
+                hint: "Utilisé par les boutons WhatsApp généraux (hero, barre mobile, contact)."
+          - name: proofs
+            label: Chiffres clés (preuves sociales)
+            widget: object
+            i18n: true
+            fields:
+              - name: subscribersLabel
+                label: Libellé des abonnés YouTube
+                widget: string
+                i18n: true
+                hint: "Le chiffre vient de Réglages → Chaîne YouTube."
+              - name: items
+                label: Autres chiffres
+                widget: list
+                i18n: duplicate
+                summary: "{{value}} {{label}}"
+                fields:
+                  - { name: value, label: Valeur, widget: string, i18n: true }
+                  - { name: label, label: Libellé, widget: string, i18n: true }
+
+      - name: services
+        label: Services & tarifs
+        file: src/data/{{locale}}/services.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - { name: intro, label: Introduction, widget: text, i18n: true }
+          - name: items
+            label: Services
+            widget: list
+            i18n: duplicate
+            summary: "{{title}} — {{price}}"
+            fields:
+              - { name: title, label: Titre, widget: string, i18n: true }
+              - { name: description, label: Description (bénéfice), widget: text, i18n: true }
+              - name: points
+                label: Points clés
+                widget: list
+                i18n: true
+                required: false
+                field: { name: point, label: Point, widget: string }
+              - name: price
+                label: Prix
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+                hint: "Montant sans devise. Laisser vide = « Sur devis ». 0 = « Gratuit »."
+              - { name: priceFrom, label: Afficher « À partir de », widget: boolean, default: false }
+              - name: priceSuffix
+                label: Suffixe du prix
+                widget: string
+                i18n: true
+                required: false
+                hint: "Ex. « / heure »"
+              - { name: featured, label: Mettre en avant (« Le plus demandé »), widget: boolean, default: false }
+              - { name: cta, label: Texte du bouton, widget: string, i18n: true }
+              - { name: whatsappMessage, label: Message WhatsApp pré-rempli, widget: text, i18n: true }
+          - { name: note, label: Note sous les services, widget: text, i18n: true, required: false }
+
+      - name: resources
+        label: Formations & ressources
+        file: src/data/{{locale}}/resources.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - { name: intro, label: Introduction, widget: text, i18n: true }
+          - name: items
+            label: Offres
+            widget: list
+            i18n: duplicate
+            summary: "[{{type}}] {{title}} ({{status}})"
+            fields:
+              - name: type
+                label: Type
+                widget: select
+                options:
+                  - { label: Formation, value: formation }
+                  - { label: E-book / Guide, value: ebook }
+                  - { label: Template / Starter, value: template }
+              - name: status
+                label: Statut
+                widget: select
+                default: soon
+                options:
+                  - { label: Bientôt disponible, value: soon }
+                  - { label: Disponible, value: available }
+              - { name: title, label: Titre, widget: string, i18n: true }
+              - { name: description, label: Description, widget: text, i18n: true }
+              - name: price
+                label: Prix
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+                hint: "Affiché seulement si « Disponible ». 0 = « Gratuit »."
+              - name: link
+                label: Lien de paiement / page de détail
+                widget: string
+                required: false
+                hint: "Utilisé si « Disponible ». Sinon le bouton ouvre WhatsApp (liste d'attente)."
+              - { name: cta, label: Texte du bouton, widget: string, i18n: true }
+              - { name: whatsappMessage, label: Message WhatsApp pré-rempli, widget: text, i18n: true, required: false }
+
+      - name: projects
+        label: Projets
+        file: src/data/{{locale}}/projects.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - name: items
+            label: Projets
+            widget: list
+            i18n: duplicate
+            summary: "{{name}}"
+            fields:
+              - { name: name, label: Nom, widget: string, i18n: true }
+              - name: summary
+                label: Description
+                widget: text
+                i18n: true
+                hint: "Variable disponible : {subscribers} (nombre d'abonnés YouTube)."
+              - { name: image, label: Capture d'écran (736×483), widget: image }
+              - { name: linkPreview, label: Lien du site, widget: string, required: false }
+              - { name: linkSource, label: Lien du code source, widget: string, required: false }
+
+      - name: youtube
+        label: Section YouTube
+        file: src/data/{{locale}}/youtube.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - name: intro
+            label: Texte d'accompagnement
+            widget: text
+            i18n: true
+            hint: "Les 3 dernières vidéos sont récupérées automatiquement à chaque déploiement."
+
+      - name: experience
+        label: Expérience
+        file: src/data/{{locale}}/experience.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - name: items
+            label: Postes
+            widget: list
+            i18n: duplicate
+            summary: "{{company}} — {{position}}"
+            fields:
+              - { name: company, label: Entreprise, widget: string }
+              - { name: position, label: Poste, widget: string, i18n: true }
+              - { name: startDate, label: Début, widget: string, i18n: true }
+              - { name: endDate, label: Fin, widget: string, i18n: true }
+              - name: highlights
+                label: Réalisations
+                widget: list
+                i18n: true
+                field: { name: highlight, label: Réalisation, widget: text }
+
+      - name: skills
+        label: Compétences
+        file: src/data/{{locale}}/skills.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - name: items
+            label: Catégories
+            widget: list
+            i18n: duplicate
+            summary: "{{category}}"
+            fields:
+              - { name: category, label: Catégorie, widget: string, i18n: true }
+              - name: items
+                label: Compétences
+                widget: list
+                i18n: true
+                field: { name: skill, label: Compétence, widget: string }
+
+      - name: education
+        label: Parcours académique
+        file: src/data/{{locale}}/education.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - name: items
+            label: Diplômes
+            widget: list
+            i18n: duplicate
+            summary: "{{degree}}"
+            fields:
+              - { name: school, label: École, widget: string, i18n: true }
+              - { name: degree, label: Diplôme, widget: string, i18n: true }
+              - { name: startDate, label: Début, widget: string, i18n: true }
+              - { name: endDate, label: Fin, widget: string, i18n: true }
+              - { name: summary, label: Description, widget: text, i18n: true, required: false }
+
+      - name: about
+        label: À propos
+        file: src/data/{{locale}}/about.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - name: description
+            label: Texte
+            widget: text
+            i18n: true
+            hint: "Sauter une ligne pour un nouveau paragraphe. Variable disponible : {subscribers}."
+          - { name: image, label: Photo, widget: image, i18n: duplicate }
+
+      - name: contact
+        label: Contact
+        file: src/data/{{locale}}/contact.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la section, widget: string, i18n: true }
+          - { name: intro, label: Introduction, widget: text, i18n: true }
+          - { name: responseTime, label: Délai de réponse, widget: string, i18n: true }

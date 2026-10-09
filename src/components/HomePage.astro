@@ -1,0 +1,36 @@
+---
+// Page d'accueil commune aux deux langues (src/pages/index.astro et src/pages/en/index.astro)
+import Layout from "@layouts/Layout.astro";
+import Hero from "./Hero.astro";
+import Services from "./Services.astro";
+import Resources from "./Resources.astro";
+import Projects from "./Projects.astro";
+import YouTube from "./YouTube.astro";
+import Experience from "./Experience.astro";
+import Skills from "./Skills.astro";
+import Education from "./Education.astro";
+import About from "./About.astro";
+import Contact from "./Contact.astro";
+import { getContent } from "@i18n";
+import type { Locale } from "@types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const content = getContent(locale);
+---
+
+<Layout locale={locale}>
+  <Hero locale={locale} />
+  <Services locale={locale} />
+  <Resources locale={locale} />
+  <Projects locale={locale} />
+  <YouTube locale={locale} />
+  <Experience {...content.experience} />
+  <Skills {...content.skills} />
+  <Education {...content.education} />
+  <About locale={locale} />
+  <Contact locale={locale} />
+</Layout>

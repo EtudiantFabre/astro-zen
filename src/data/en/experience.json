@@ -1,0 +1,47 @@
+{
+  "title": "Experience",
+  "items": [
+    {
+      "company": "Knowbridge University",
+      "position": "Full-Stack Laravel Developer & Trainer",
+      "startDate": "Nov. 2025",
+      "endDate": "Present",
+      "highlights": [
+        "Engaged by the university's partners for digital projects, I delivered web applications from requirements analysis to production, shortening delivery times.",
+        "Designed and built the official website and internal mobile apps, leading the technical design and full implementation.",
+        "Trained students in software development (courses and project supervision), strengthening their technical autonomy."
+      ]
+    },
+    {
+      "company": "Itplex-Consult",
+      "position": "Full-Stack Django Developer",
+      "startDate": "Feb. 2025",
+      "endDate": "Nov. 2025",
+      "highlights": [
+        "Owned the SMS.TG SaaS platform: designed a campaign system integrating carrier APIs (YAS, MOOV) for real-time sending and delivery tracking.",
+        "Built client, quota, statistics and billing management, centralizing the whole campaign lifecycle in a single interface.",
+        "Secured data flows and implemented two-factor authentication (2FA), strengthening client account protection."
+      ]
+    },
+    {
+      "company": "ADI-Elite",
+      "position": "Full-Stack Laravel Developer",
+      "startDate": "Oct. 2024",
+      "endDate": "Dec. 2024",
+      "highlights": [
+        "Built a web application to manage and analyze school data, making academic performance easier to track.",
+        "Exposed the data through a Laravel RESTful API consumed by a mobile app, with user, role and permission management.",
+        "Delivered a responsive Blade + Tailwind CSS interface for a smooth user experience."
+      ]
+    },
+    {
+      "company": "RGPL Gabon",
+      "position": "Full-Stack Laravel Developer — Freelance (remote)",
+      "startDate": "Jan. 2024",
+      "endDate": "Aug. 2024",
+      "highlights": [
+        "Independently designed and delivered a GDPR-compliant personal data management web application, adapted to Gabon's regulatory context — from architecture to deployment."
+      ]
+    }
+  ]
+}

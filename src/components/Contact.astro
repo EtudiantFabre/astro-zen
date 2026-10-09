@@ -1,0 +1,150 @@
+---
+import Section from "./Section.astro";
+import { settings, getContent, getUi } from "@i18n";
+import { whatsappLink } from "@lib/format";
+import type { Locale } from "@types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const content = getContent(locale);
+const { title, intro, responseTime } = content.contact;
+const t = getUi(locale).contact;
+const { email, phone, whatsapp } = settings;
+
+const subjects = [
+  ...content.services.items.map((s) => s.title),
+  t.subjectOther,
+];
+
+const inputClass =
+  "w-full rounded-xl border border-neutral/25 bg-black px-4 py-3 text-base text-white placeholder:text-neutral/60 focus:border-primary focus:outline-none";
+---
+
+<Section text={title} href="contact" intro={intro}>
+  <div class="mb-12 flex flex-wrap items-center gap-4">
+    <a
+      href={whatsappLink(content.home.hero.whatsappMessage)}
+      target="_blank"
+      rel="noopener"
+      class="inline-block rounded-full bg-primary px-8 py-5 text-sm leading-5 font-medium text-[#fff] transition-opacity hover:opacity-90"
+    >
+      {t.whatsapp} · {phone}
+    </a>
+    <a
+      href={`mailto:${email}`}
+      class="inline-block rounded-full border border-neutral/40 px-8 py-5 text-sm leading-5 font-medium text-white hover:border-primary hover:text-primary"
+    >
+      {t.email}
+    </a>
+  </div>
+  <p class="-mt-6 mb-12 flex items-center gap-2 text-sm text-neutral">
+    <span
+      class="inline-block h-2 w-2 rounded-full bg-emerald-400"
+      aria-hidden="true"></span>
+    {responseTime}
+  </p>
+
+  <form
+    id="contact-form"
+    class="rounded-2xl border border-neutral/20 bg-[#1c232d]/85 p-6 md:p-8"
+    data-email={email}
+    data-whatsapp={whatsapp}
+    data-greeting={t.greeting}
+    data-signature={t.signature}
+  >
+    <h3 class="mb-6 font-serif text-2xl font-semibold text-white">
+      {t.formTitle}
+    </h3>
+    <div class="mb-5 grid gap-5 sm:grid-cols-2">
+      <label class="block">
+        <span class="mb-2 block text-sm text-white">{t.name}</span>
+        <input
+          name="name"
+          type="text"
+          required
+          autocomplete="name"
+          class={inputClass}
+        />
+      </label>
+      <label class="block">
+        <span class="mb-2 block text-sm text-white">{t.emailField}</span>
+        <input
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          class={inputClass}
+        />
+      </label>
+    </div>
+    <label class="mb-5 block">
+      <span class="mb-2 block text-sm text-white">{t.subject}</span>
+      <select name="subject" class={inputClass}>
+        {subjects.map((subject) => <option>{subject}</option>)}
+      </select>
+    </label>
+    <label class="mb-6 block">
+      <span class="mb-2 block text-sm text-white">{t.message}</span>
+      <textarea
+        name="message"
+        rows="5"
+        required
+        placeholder={t.messagePlaceholder}
+        class={inputClass}></textarea>
+    </label>
+    <div class="flex flex-wrap gap-4">
+      <button
+        type="submit"
+        value="whatsapp"
+        class="cursor-pointer rounded-full bg-primary px-8 py-4 text-sm font-medium text-[#fff] transition-opacity hover:opacity-90"
+      >
+        {t.sendWhatsapp}
+      </button>
+      <button
+        type="submit"
+        value="email"
+        class="cursor-pointer rounded-full border border-neutral/40 px-8 py-4 text-sm font-medium text-white hover:border-primary hover:text-primary"
+      >
+        {t.sendEmail}
+      </button>
+    </div>
+    <p class="mt-4 text-xs text-neutral">{t.formHint}</p>
+  </form>
+</Section>
+
+<script>
+  // Pas de backend : le formulaire compose un message pré-rempli
+  // et l'ouvre dans WhatsApp ou dans la messagerie du visiteur.
+  const form = document.querySelector<HTMLFormElement>("#contact-form");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const { email, whatsapp, greeting, signature } = form.dataset;
+    const field = (name: string) => String(data.get(name) ?? "").trim();
+
+    const subject = field("subject");
+    const body = [
+      greeting,
+      "",
+      field("message"),
+      "",
+      `${signature} ${field("name")} (${field("email")})`,
+    ].join("\n");
+
+    const channel = (event.submitter as HTMLButtonElement | null)?.value;
+    if (channel === "email") {
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    } else {
+      const text = `*${subject}*\n\n${body}`;
+      window.open(
+        `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`,
+        "_blank",
+        "noopener",
+      );
+    }
+  });
+</script>
