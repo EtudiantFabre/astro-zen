@@ -1,76 +1,58 @@
 ---
-import Section from "./Section.astro";
-import { getContent, getUi } from "@i18n";
+// Formations & ressources : lignes qui se remplissent au survol
+import SectionLabel from "./SectionLabel.astro";
+import Heading from "./Heading.astro";
+import { settings, getContent, getUi } from "@i18n";
 import { formatPrice, whatsappLink } from "@lib/format";
 import type { Locale } from "@types";
 
 interface Props {
   locale: Locale;
+  num: number;
 }
 
-const { locale } = Astro.props;
+const { locale, num } = Astro.props;
 const { title, intro, items } = getContent(locale).resources;
-const t = getUi(locale).resources;
-
-const badgeStyles: Record<string, string> = {
-  formation: "bg-primary/15 text-[#93b4ff]",
-  ebook: "bg-amber-400/15 text-amber-300",
-  template: "bg-emerald-400/15 text-emerald-300",
-};
+const ui = getUi(locale);
+const t = ui.resources;
 
 // Offre disponible avec lien → lien de paiement/détail ; sinon → WhatsApp (liste d'attente)
 const ctaHref = (item: (typeof items)[number]) =>
-  item.status === "available" && item.link
-    ? item.link
-    : whatsappLink(item.whatsappMessage);
+  item.status === "available" && item.link ? item.link : whatsappLink(item.whatsappMessage);
+
+const newsletter = settings.socialLinks.find((s) => /substack|newsletter/i.test(s.href + s.text));
 ---
 
-<Section text={title} href="resources" intro={intro}>
-  <div class="grid gap-6 sm:grid-cols-2">
+<section class="academy" id="resources" data-scene="academy">
+  <SectionLabel num={num} text={title} />
+  <Heading lines={ui.fx.resourcesHeading} />
+  <p class="section-intro">{intro}</p>
+
+  <ul class="academy__list">
     {
-      items.map((item) => {
-        const href = ctaHref(item);
-        const isExternal = href.startsWith("http");
-        return (
-          <article class="flex flex-col rounded-2xl border border-neutral/20 bg-[#1c232d]/85 p-6">
-            <div class="mb-4 flex flex-wrap items-center gap-2">
-              <span
-                class:list={[
-                  "rounded-full px-3 py-1 text-xs font-medium",
-                  badgeStyles[item.type] ?? badgeStyles.formation,
-                ]}
-              >
-                {t.types[item.type] ?? item.type}
-              </span>
-              {item.status === "soon" && (
-                <span class="rounded-full border border-neutral/30 px-3 py-1 text-xs text-neutral">
-                  {t.soon}
-                </span>
-              )}
-            </div>
-            <h3 class="mb-3 font-serif text-xl font-semibold text-white">
-              {item.title}
-            </h3>
-            <p class="mb-6 text-sm text-neutral">{item.description}</p>
-            <div class="mt-auto flex flex-wrap items-center justify-between gap-4">
-              {item.status === "available" &&
-                typeof item.price === "number" && (
-                  <span class="font-serif text-2xl font-bold text-primary">
-                    {formatPrice(item.price, locale)}
-                  </span>
-                )}
-              <a
-                href={href}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener" : undefined}
-                class="rounded-full border border-primary px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-primary"
-              >
-                {item.cta}
-              </a>
-            </div>
-          </article>
-        );
-      })
+      items.map((item) => (
+        <li>
+          <a class="academy__row" href={ctaHref(item)} target="_blank" rel="noopener" data-cursor={item.cta}>
+            <span class="mono academy__type">{t.types[item.type] ?? item.type}</span>
+            <span class="academy__title">{item.title}</span>
+            <span class="academy__desc">{item.description}</span>
+            <span class="academy__tag mono">
+              {item.status === "available"
+                ? typeof item.price === "number"
+                  ? formatPrice(item.price, locale)
+                  : item.cta
+                : t.soon}
+            </span>
+          </a>
+        </li>
+      ))
     }
-  </div>
-</Section>
+  </ul>
+  {
+    newsletter && (
+      <a class="btn btn--ghost" href={newsletter.href} target="_blank" rel="noopener" data-magnetic="0.25">
+        {ui.fx.newsletter} <span class="btn__arrow">↗</span>
+      </a>
+    )
+  }
+</section>

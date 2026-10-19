@@ -1,35 +1,63 @@
 ---
-import Section from "./Section.astro";
-import { Image } from "astro:assets";
+// Manifeste (À propos) + chiffres clés
+import SectionLabel from "./SectionLabel.astro";
 import { settings, getContent } from "@i18n";
 import { fillVariables } from "@lib/format";
 import type { Locale } from "@types";
 
 interface Props {
   locale: Locale;
+  num: number;
 }
 
-const { locale } = Astro.props;
-const { title, description, image } = getContent(locale).about;
-const paragraphs = fillVariables(description, locale)
+const { locale, num } = Astro.props;
+const { about, home } = getContent(locale);
+const [lead, ...rest] = fillVariables(about.description, locale)
   .split(/\n\s*\n/)
   .map((p) => p.trim())
   .filter(Boolean);
+
+// « 3+ ans » → compteur 3 + suffixe « + ans »
+const parse = (value: string) => {
+  const m = value.match(/^([\d\s.,  ]+)(.*)$/);
+  if (!m) return { count: null, suffix: value };
+  return { count: Number(m[1].replace(/[^\d]/g, "")), suffix: m[2].trim() };
+};
+
+const stats = [
+  { count: settings.youtube.subscribers, suffix: "+", label: home.proofs.subscribersLabel },
+  ...home.proofs.items.map((item) => ({ ...parse(item.value), label: item.label })),
+];
 ---
 
-<Section text={title} href="about">
-  <div class="flex flex-col items-center gap-12 md:flex-row md:gap-8">
-    <div class="w-auto space-y-5 text-base text-neutral md:pr-5">
-      {paragraphs.map((p) => <p>{p}</p>)}
-    </div>
-    <div class="h-80 w-64 shrink-0 rotate-[5deg] bg-white p-4 md:rotate-[7deg]">
-      <Image
-        class="object-cover"
-        src={image}
-        width="260"
-        height="260"
-        alt={settings.name}
-      />
-    </div>
+<section class="manifesto" id="about" data-scene="manifesto">
+  <SectionLabel num={num} text={about.title} />
+  <p class="manifesto__text" data-reveal-words>{lead}</p>
+
+  {
+    rest.length > 0 && (
+      <div class="manifesto__more">
+        <figure class="manifesto__photo" data-tilt-photo>
+          <img src={about.image} alt={settings.author} width="420" height="520" loading="lazy" decoding="async" />
+        </figure>
+        <div class="manifesto__rest">
+          {rest.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    )
+  }
+
+  <div class="stats">
+    {
+      stats.map((s) => (
+        <div class="stat">
+          <span class="stat__num">
+            {s.count !== null ? <span data-count={s.count}>0</span> : null}
+            {s.suffix && <i>{s.suffix}</i>}
+          </span>
+          <span class="stat__label mono">{s.label}</span>
+        </div>
+      ))
+    }
   </div>
-</Section>
+</section>

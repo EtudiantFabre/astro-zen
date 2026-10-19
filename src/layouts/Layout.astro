@@ -1,21 +1,22 @@
 ---
 import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import MobileCta from "@components/MobileCta.astro";
-import { Font } from "astro:assets";
 import { getAbsoluteLocaleUrl } from "astro:i18n";
-import { LOCALES, DEFAULT_LOCALE, settings, getContent } from "@i18n";
+import { LOCALES, DEFAULT_LOCALE, settings, getContent, getUi } from "@i18n";
+import { formatPrice, fillVariables } from "@lib/format";
 import type { Locale } from "@types";
 
 import "../styles/global.css";
+import "../styles/sections.css";
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const { title, description } = getContent(locale).home.seo;
-const { author, socialImage, siteUrl, name, email, socialLinks } = settings;
+const content = getContent(locale);
+const ui = getUi(locale);
+const { title, description } = content.home.seo;
+const { author, socialImage, siteUrl, name, email, phone, whatsapp, socialLinks } = settings;
 
 const canonicalURL = getAbsoluteLocaleUrl(locale, "");
 const ogImgUrl = new URL(socialImage, siteUrl).href;
@@ -28,7 +29,7 @@ const jsonLd = {
   alternateName: name,
   url: siteUrl,
   email: `mailto:${email}`,
-  jobTitle: getContent(locale).home.hero.specialty,
+  jobTitle: content.home.hero.specialty,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Lomé",
@@ -36,15 +37,50 @@ const jsonLd = {
   },
   sameAs: socialLinks.map(({ href }) => href),
 };
+
+// Données lues par les scripts (terminal, animations) — issues du contenu éditable
+const siteData = {
+  locale,
+  author,
+  email,
+  phone,
+  whatsapp,
+  specialty: content.home.hero.specialty,
+  headline: content.home.hero.headline,
+  responseTime: content.contact.responseTime,
+  socials: socialLinks,
+  projects: content.projects.items.map(({ name, summary, linkPreview, linkSource }) => ({
+    name,
+    summary: fillVariables(summary, locale),
+    url: linkPreview || linkSource || "",
+  })),
+  skills: content.skills.items,
+  experience: content.experience.items.map(({ company, position, startDate, endDate }) => ({
+    company,
+    position,
+    period: `${startDate} → ${endDate}`,
+  })),
+  education: content.education.items.map(({ degree, school }) => ({ degree, school })),
+  services: content.services.items.map((s) => ({
+    title: s.title,
+    price:
+      (s.priceFrom && s.price != null ? `${ui.price.from} ` : "") +
+      formatPrice(s.price, locale) +
+      (s.priceSuffix && s.price != null ? ` ${s.priceSuffix}` : ""),
+  })),
+  fx: ui.fx,
+  terminal: ui.terminal,
+};
 ---
 
 <!doctype html>
-<html lang={locale} class="scroll-pt-24 scroll-smooth">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070708" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonicalURL} />
@@ -53,17 +89,17 @@ const jsonLd = {
         <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l, "")} />
       ))
     }
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href={getAbsoluteLocaleUrl(DEFAULT_LOCALE, "")}
-    />
+    <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(DEFAULT_LOCALE, "")} />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <Font cssVariable="--font-gabarito" preload />
-    <Font cssVariable="--font-be-vietnam-pro" preload />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={locale === "fr" ? "fr_FR" : "en_US"} />
@@ -78,18 +114,42 @@ const jsonLd = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImgUrl} />
 
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify(jsonLd)}
-    />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class="bg-black pb-20 font-sans md:pb-0">
+  <body class="is-loading">
+    <!-- Preloader -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <div class="loader__log mono" id="loaderLog"></div>
+        <div class="loader__bottom">
+          <span class="mono">{name}<br />{ui.fx.portfolio} ©{new Date().getFullYear()}</span>
+          <span class="loader__count" id="loaderCount">000</span>
+        </div>
+        <div class="loader__bar"><span id="loaderBar"></span></div>
+      </div>
+    </div>
+
+    <!-- Calques globaux -->
+    <canvas id="webgl" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+    <div class="cursor" aria-hidden="true">
+      <div class="cursor__dot"></div>
+      <div class="cursor__ring"><span class="cursor__label"></span></div>
+    </div>
+
     <Header locale={locale} />
-    <main class="mx-auto max-w-3xl px-5">
+
+    <main>
       <slot />
     </main>
-    <Footer locale={locale} />
-    <MobileCta locale={locale} />
+
+    <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+    <script is:inline type="application/json" id="site-data" set:html={JSON.stringify(siteData)} />
+    <script>
+      import "../scripts/main.js";
+    </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 ---
-import Section from "./Section.astro";
+import SectionLabel from "./SectionLabel.astro";
 import { settings, getContent, getUi } from "@i18n";
 import { formatDate, formatSubscribers } from "@lib/format";
 import { getLatestVideos } from "@lib/youtube";
@@ -7,9 +7,10 @@ import type { Locale } from "@types";
 
 interface Props {
   locale: Locale;
+  num: number;
 }
 
-const { locale } = Astro.props;
+const { locale, num } = Astro.props;
 const { title, intro } = getContent(locale).youtube;
 const ui = getUi(locale);
 const t = ui.youtube;
@@ -17,106 +18,61 @@ const { url: channelUrl, channelId } = settings.youtube;
 const videos = await getLatestVideos(channelId, 3);
 ---
 
-<Section text={title} href="youtube" intro={intro}>
-  <p class="-mt-6 mb-10 text-sm text-neutral">
-    <span class="font-semibold text-white">{formatSubscribers(locale)}</span>
-    {getContent(locale).home.proofs.subscribersLabel}
-  </p>
+<section class="yt" id="youtube" data-scene="youtube">
+  <div class="yt__head">
+    <div>
+      <SectionLabel num={num} text="YouTube" />
+      <h2 class="h2 yt__title"><span class="ln"><span>{title}</span></span></h2>
+      <p class="section-intro">{intro}</p>
+    </div>
+    <div class="yt__subs">
+      <span class="yt__subs-num">{formatSubscribers(locale)}</span>
+      <span class="mono">{getContent(locale).home.proofs.subscribersLabel}</span>
+    </div>
+  </div>
 
   {
     videos.length > 0 ? (
-      <div class="grid gap-6 sm:grid-cols-3">
+      <div class="yt__grid">
         {videos.map((video) => (
-          <article class="flex flex-col overflow-hidden rounded-2xl border border-neutral/20 bg-[#1c232d]/85">
+          <article class="video">
             {/* Miniature cliquable : l'iframe YouTube n'est chargée qu'au clic (performance) */}
-            <div class="relative aspect-video bg-black">
+            <div class="video__media">
               <button
                 type="button"
-                class="yt-lite group absolute inset-0 h-full w-full cursor-pointer"
+                class="yt-lite"
                 data-video-id={video.id}
                 data-video-title={video.title}
+                data-cursor={ui.fx.watch}
                 aria-label={`${t.play} : ${video.title}`}
               >
-                <img
-                  src={video.thumbnail}
-                  alt=""
-                  width="480"
-                  height="360"
-                  loading="lazy"
-                  decoding="async"
-                  class="h-full w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
-                />
-                <span class="absolute inset-0 m-auto flex h-12 w-16 items-center justify-center rounded-xl bg-[#ff0033] transition-transform group-hover:scale-110">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path d="M8 5v14l11-7z" fill="#fff" />
-                  </svg>
-                </span>
+                <img src={video.thumbnail} alt="" width="480" height="360" loading="lazy" decoding="async" />
+                <span class="video__play" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="flex flex-1 flex-col p-4">
-              <h3 class="mb-2 line-clamp-2 text-sm font-semibold text-white">
-                {video.title}
-              </h3>
-              <time
-                class="mb-4 text-xs text-neutral"
-                datetime={video.published.toISOString()}
-              >
+            <div class="video__body">
+              <time class="mono" datetime={video.published.toISOString()}>
                 {formatDate(video.published, locale)}
               </time>
-              <a
-                href={video.url}
-                target="_blank"
-                rel="noopener"
-                class="mt-auto text-sm text-white after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-              >
-                {t.watch}
+              <h3>{video.title}</h3>
+              <a href={video.url} target="_blank" rel="noopener">
+                {t.watch} ↗
               </a>
             </div>
           </article>
         ))}
       </div>
     ) : (
-      <p class="text-base text-neutral">{t.unavailable}</p>
+      <p class="section-intro">{t.unavailable}</p>
     )
   }
 
-  <div class="mt-10 flex flex-wrap gap-4">
-    <a
-      href={channelUrl}
-      target="_blank"
-      rel="noopener"
-      class="inline-block rounded-full bg-primary px-8 py-4 text-sm font-medium text-[#fff] transition-opacity hover:opacity-90"
-    >
-      {t.allVideos}
+  <div class="yt__ctas">
+    <a class="btn btn--accent" href={channelUrl} target="_blank" rel="noopener" data-magnetic="0.25">
+      {t.allVideos} <span class="btn__arrow">↗</span>
     </a>
-    <a
-      href={`${channelUrl}?sub_confirmation=1`}
-      target="_blank"
-      rel="noopener"
-      class="inline-block rounded-full border border-neutral/40 px-8 py-4 text-sm font-medium text-white hover:border-primary hover:text-primary"
-    >
-      {t.subscribe}
+    <a class="btn btn--ghost" href={`${channelUrl}?sub_confirmation=1`} target="_blank" rel="noopener" data-magnetic="0.25">
+      {t.subscribe} <span class="btn__arrow">↗</span>
     </a>
   </div>
-</Section>
-
-<script>
-  // Remplace la miniature par le lecteur YouTube (sans cookies) au clic
-  document.querySelectorAll<HTMLButtonElement>(".yt-lite").forEach((button) => {
-    button.addEventListener("click", () => {
-      const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube-nocookie.com/embed/${button.dataset.videoId}?autoplay=1&rel=0`;
-      iframe.title = button.dataset.videoTitle ?? "YouTube";
-      iframe.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      iframe.className = "absolute inset-0 h-full w-full";
-      button.replaceWith(iframe);
-    });
-  });
-</script>
+</section>

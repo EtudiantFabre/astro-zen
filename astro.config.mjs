@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import { fontProviders } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,20 +11,7 @@ export default defineConfig({
     defaultLocale: "fr",
     routing: { prefixDefaultLocale: false },
   },
-  fonts: [
-    {
-      provider: fontProviders.fontsource(),
-      name: "Gabarito",
-      cssVariable: "--font-gabarito",
-      fallbacks: ["ui-serif", "serif"],
-    },
-    {
-      provider: fontProviders.fontsource(),
-      name: "Be Vietnam Pro",
-      cssVariable: "--font-be-vietnam-pro",
-      fallbacks: ["system-ui", "sans-serif"],
-    },
-  ],
+  // Polices chargées depuis Google Fonts dans src/layouts/Layout.astro
   vite: {
     plugins: [tailwindcss()],
   },

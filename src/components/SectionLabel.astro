@@ -1,0 +1,10 @@
+---
+interface Props {
+  num: number;
+  text: string;
+}
+
+const { num, text } = Astro.props;
+---
+
+<div class="section-label mono"><span>({String(num).padStart(2, "0")})</span> {text}</div>

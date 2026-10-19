@@ -1,77 +1,56 @@
 ---
-import Section from "./Section.astro";
+import SectionLabel from "./SectionLabel.astro";
+import Heading from "./Heading.astro";
 import { getContent, getUi } from "@i18n";
 import { formatPrice, whatsappLink } from "@lib/format";
 import type { Locale } from "@types";
 
 interface Props {
   locale: Locale;
+  num: number;
 }
 
-const { locale } = Astro.props;
+const { locale, num } = Astro.props;
 const { title, intro, items, note } = getContent(locale).services;
-const t = getUi(locale).price;
+const ui = getUi(locale);
+const t = ui.price;
 ---
 
-<Section text={title} href="services" intro={intro}>
-  <div class="grid gap-6 sm:grid-cols-2">
-    {
-      items.map((service) => (
-        <article
-          class:list={[
-            "relative flex flex-col rounded-2xl border bg-[#1c232d]/85 px-6 pt-8 pb-6",
-            service.featured ? "border-primary" : "border-neutral/20",
-          ]}
-        >
-          {service.featured && (
-            <span class="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-medium text-[#fff]">
-              {t.popular}
-            </span>
-          )}
-          <h3 class="mb-3 font-serif text-2xl font-semibold text-white">
-            {service.title}
-          </h3>
-          <p class="mb-5 text-base text-neutral">{service.description}</p>
+<section class="services" id="services" data-scene="services">
+  <div class="services__head">
+    <SectionLabel num={num} text={title} />
+    <Heading lines={ui.fx.servicesHeading} />
+    <p class="section-intro">{intro}</p>
+  </div>
 
-          {service.points && service.points.length > 0 && (
-            <ul class="mb-6 list-none">
-              {service.points.map((point) => (
-                <li class="relative mb-2 pl-8 text-sm text-neutral before:absolute before:top-0.5 before:left-0 before:content-[url(/check.svg)]">
-                  {point}
-                </li>
+  <div class="services__grid">
+    {
+      items.map((s, i) => (
+        <article class:list={["service", s.featured && "is-featured"]} data-spotlight>
+          <div class="service__top">
+            <span class="mono service__num">{String(i + 1).padStart(2, "0")}</span>
+            {s.featured && <span class="service__badge mono">{t.popular}</span>}
+          </div>
+          <h3 class="service__title">{s.title}</h3>
+          <p class="service__price">
+            {s.priceFrom && s.price != null && <small>{t.from} </small>}
+            {formatPrice(s.price, locale)}
+            {s.priceSuffix && s.price != null && <small> {s.priceSuffix}</small>}
+          </p>
+          <p class="service__desc">{s.description}</p>
+          {s.points && s.points.length > 0 && (
+            <ul class="service__list">
+              {s.points.map((p) => (
+                <li>{p}</li>
               ))}
             </ul>
           )}
-
-          <div class="mt-auto">
-            <p class="mb-5">
-              {service.priceFrom && service.price != null && (
-                <span class="block text-xs text-neutral">{t.from}</span>
-              )}
-              <span class="font-serif text-3xl font-bold text-primary">
-                {formatPrice(service.price, locale)}
-              </span>
-              {service.priceSuffix && service.price != null && (
-                <span class="text-sm text-neutral"> {service.priceSuffix}</span>
-              )}
-            </p>
-            <a
-              href={whatsappLink(service.whatsappMessage)}
-              target="_blank"
-              rel="noopener"
-              class:list={[
-                "block rounded-full px-6 py-4 text-center text-sm font-medium transition-opacity hover:opacity-90",
-                service.featured
-                  ? "bg-primary text-[#fff]"
-                  : "border border-primary text-white hover:bg-primary",
-              ]}
-            >
-              {service.cta}
-            </a>
-          </div>
+          <a class="service__cta" href={whatsappLink(s.whatsappMessage)} target="_blank" rel="noopener">
+            {s.cta} <span>→</span>
+          </a>
         </article>
       ))
     }
   </div>
-  {note && <p class="mt-8 text-sm text-neutral">{note}</p>}
-</Section>
+  {note && <p class="services__note mono">{note}</p>}
+</section>

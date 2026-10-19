@@ -1,6 +1,4 @@
 ---
-import Menu from "@icons/Menu.astro";
-import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { LOCALES, settings, getUi } from "@i18n";
 import type { Locale } from "@types";
@@ -13,142 +11,65 @@ const { locale } = Astro.props;
 const t = getUi(locale);
 
 const navLinks = [
-  { text: t.nav.home, href: "#hero" },
+  { text: t.nav.projects, href: "#projects" },
   { text: t.nav.services, href: "#services" },
   { text: t.nav.resources, href: "#resources" },
-  { text: t.nav.projects, href: "#projects" },
   { text: t.nav.youtube, href: "#youtube" },
   { text: t.nav.contact, href: "#contact" },
 ];
+
+const initials = settings.name
+  .split(/\s+/)
+  .map((w) => w[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
 ---
 
-<header
-  class="sticky top-0 z-50 mx-auto flex max-w-5xl animate-slide-in items-center justify-between gap-4 bg-black px-5 py-6"
->
-  <a href={getRelativeLocaleUrl(locale, "")} aria-label={t.header.homeLink}>
-    <Image
-      class="rounded-full"
-      src={settings.logo}
-      width="45"
-      height="45"
-      alt={settings.name}
-      priority
-    />
+<header class="nav" id="nav">
+  <a href="#top" class="nav__logo" data-magnetic="0.3" aria-label={t.header.homeLink}>
+    <span class="nav__mark">{initials}</span>
+    <span class="nav__name mono">{settings.name}</span>
   </a>
-
-  <nav
-    class="absolute top-20 right-5 hidden rounded-xl border border-neutral/40 bg-black px-4 py-5 text-neutral lg:static lg:block lg:border-0 lg:bg-transparent lg:p-0"
-    id="main-menu"
-  >
-    <ul class="gap-1 lg:flex">
-      {
-        navLinks.map((link) => (
-          <li class="relative">
-            <a
-              class={`nav-item relative block p-2 text-sm font-medium transition-all duration-500 after:absolute after:bottom-0 after:left-2/4 after:h-2 after:w-1 after:-translate-x-2/4 after:text-primary after:opacity-0 after:content-['•'] hover:text-white`}
-              href={link.href}
-            >
-              {link.text}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+  <nav class="nav__links" aria-label={t.header.homeLink}>
+    {navLinks.map((l) => <a href={l.href} data-scramble>{l.text}</a>)}
   </nav>
-
-  <div class="flex items-center gap-3">
-    <div
-      class="flex items-center text-xs font-medium text-neutral"
-      role="group"
-      aria-label={t.header.switchLanguage}
-    >
+  <div class="nav__right">
+    <div class="nav__status mono">
+      <span class="pulse"></span>{t.fx.available} · Lomé <span id="clock">--:--:--</span>
+    </div>
+    <div class="lang mono" role="group" aria-label={t.header.switchLanguage}>
       {
-        LOCALES.map((l, i) => (
-          <>
-            {i > 0 && <span class="text-neutral/40">|</span>}
-            <a
-              href={getRelativeLocaleUrl(l, "")}
-              hreflang={l}
-              lang={l}
-              aria-current={l === locale ? "true" : undefined}
-              class:list={[
-                "px-1.5 py-2 uppercase hover:text-white",
-                l === locale && "text-primary",
-              ]}
-            >
-              {l}
-            </a>
-          </>
+        LOCALES.map((l) => (
+          <a
+            href={getRelativeLocaleUrl(l, "")}
+            hreflang={l}
+            lang={l}
+            aria-current={l === locale ? "true" : undefined}
+            class:list={[l === locale && "is-active"]}
+            data-no-smooth
+          >
+            {l}
+          </a>
         ))
       }
     </div>
-
-    <a
-      href="#contact"
-      class="hidden rounded-full bg-primary px-5 py-2.5 text-xs font-medium text-[#fff] transition-opacity hover:opacity-90 md:inline-block"
-    >
-      {t.header.cta}
-    </a>
-
-    <button
-      type="button"
-      id="menu-button"
-      class="px-1.5 text-neutral lg:hidden"
-      aria-expanded="false"
-      aria-controls="main-menu"
-      aria-label={t.header.openMenu}
-    >
-      <Menu />
+    <button class="nav__burger" id="burger" aria-label={t.header.openMenu} aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
     </button>
   </div>
 </header>
 
-<script>
-  // Toggle mobile menu
-  const button = document.querySelector("#menu-button");
-  const menu = document.querySelector("#main-menu");
-  const navItems = document.querySelectorAll("#main-menu > ul > li > a");
-
-  const toggleMenu = () => {
-    menu?.classList.toggle("hidden");
-    const isHidden = menu?.classList.contains("hidden");
-    button?.setAttribute("aria-expanded", `${!isHidden}`);
-  };
-
-  button?.addEventListener("click", toggleMenu);
-  navItems.forEach((item) => {
-    item?.addEventListener("click", () => {
-      if (button?.getAttribute("aria-expanded") === "true") toggleMenu();
-    });
-  });
-
-  // Met en évidence le lien de la section qui traverse le milieu de l'écran
-  // (fonctionne aussi pour les sections plus hautes que la fenêtre)
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navItems.forEach((item) => {
-            if (item.getAttribute("href") === `#${entry.target.id}`) {
-              item.classList.add("text-white", "lg:after:opacity-100");
-            } else {
-              item.classList.remove("text-white", "lg:after:opacity-100");
-            }
-          });
-        }
-      });
-    },
-    { rootMargin: "-45% 0px -50% 0px" },
-  );
-
-  document.querySelectorAll("section[id]").forEach((section) => {
-    observer.observe(section);
-  });
-</script>
-
-<style>
-  header {
-    animation-timeline: scroll();
-    animation-range: 0 650px;
-  }
-</style>
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu__links">
+    {
+      navLinks.map((l, i) => (
+        <a href={l.href}>
+          <span class="mono">{String(i + 1).padStart(2, "0")}</span>
+          {l.text}
+        </a>
+      ))
+    }
+  </nav>
+  <div class="menu__foot mono">{settings.email}<br />{settings.phone}</div>
+</div>

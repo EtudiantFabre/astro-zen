@@ -1,71 +1,104 @@
 ---
-import Section from "./Section.astro";
-import { Image } from "astro:assets";
-import { getContent, getUi } from "@i18n";
+import SectionLabel from "./SectionLabel.astro";
+import Heading from "./Heading.astro";
+import { settings, getContent, getUi } from "@i18n";
 import { fillVariables } from "@lib/format";
 import type { Locale } from "@types";
 
 interface Props {
   locale: Locale;
+  num: number;
 }
 
-const { locale } = Astro.props;
+const { locale, num } = Astro.props;
 const { title, items } = getContent(locale).projects;
-const t = getUi(locale).projects;
+const ui = getUi(locale);
+const t = ui.fx;
+const total = String(items.length).padStart(2, "0");
+
+const host = (url?: string) => {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    return (u.hostname.replace(/^www\./, "") + u.pathname).replace(/\/$/, "");
+  } catch {
+    return url;
+  }
+};
+
+const github = settings.socialLinks.find((s) => /github/i.test(s.href));
 ---
 
-<Section text={title} href="projects">
-  {
-    items.map(({ name, summary, image, linkPreview, linkSource }, index) => {
-      const top = 98 + index * 40;
-      return (
-        <div
-          style={`top: ${top}px;`}
-          class="sticky mb-12 rounded-2xl border border-neutral/20 bg-black"
-        >
-          <div class="bg-difu relative z-1 grid min-h-145 w-full grid-rows-2 rounded-2xl bg-[#1c232d]/85 sm:grid-cols-2 sm:grid-rows-1 md:min-h-96">
-            <div class="flex flex-col px-6 pt-12 pb-8">
-              <h3 class="mb-5 font-serif text-3xl font-medium text-primary">
-                {name}
-              </h3>
-              <p class="text-base text-neutral">
-                {fillVariables(summary, locale)}
-              </p>
-              <div class="mt-auto flex gap-5 pt-8 text-white">
-                {linkSource && (
-                  <a
-                    href={linkSource}
-                    target="_blank"
-                    rel="noopener"
-                    class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                  >
-                    {t.source}
+<section class="work" id="projects" data-scene="work">
+  <div class="work__track" id="workTrack">
+    <div class="work__intro">
+      <SectionLabel num={num} text={title} />
+      <Heading lines={t.workHeading} />
+      <p class="mono work__hint">{t.workHint} <b>→</b></p>
+    </div>
+
+    {
+      items.map((p, i) => {
+        const link = p.linkPreview || p.linkSource;
+        return (
+          <article class="project">
+            <div class="project__info">
+              <div class="project__num mono">
+                <b>{String(i + 1).padStart(2, "0")}</b> / {total}
+              </div>
+              <h3 class:list={["project__title", p.name.length > 14 && "project__title--long"]}>{p.name}</h3>
+              <p class="project__desc">{fillVariables(p.summary, locale)}</p>
+              <div class="project__links">
+                {p.linkPreview && (
+                  <a class="btn btn--ghost" href={p.linkPreview} target="_blank" rel="noopener" data-magnetic="0.25" data-cursor={t.open}>
+                    {host(p.linkPreview)} <span class="btn__arrow">↗</span>
                   </a>
                 )}
-                {linkPreview && (
-                  <a
-                    href={linkPreview}
-                    target="_blank"
-                    rel="noopener"
-                    class="after:relative after:-bottom-1.25 after:content-[url(/external.svg)] hover:underline"
-                  >
-                    {t.preview}
+                {p.linkSource && (
+                  <a class="btn btn--ghost" href={p.linkSource} target="_blank" rel="noopener" data-magnetic="0.25">
+                    {ui.projects.source} <span class="btn__arrow">↗</span>
                   </a>
                 )}
               </div>
             </div>
-            <div class="flex items-end justify-end overflow-hidden">
-              <Image
-                class="h-full w-[95%] rounded-ss-xl rounded-ee-2xl object-none object-top-left sm:h-[85%] sm:w-full"
-                src={image}
-                alt={name}
-                width="736"
-                height="483"
-              />
-            </div>
-          </div>
-        </div>
-      );
-    })
-  }
-</Section>
+            <a
+              class="project__visual"
+              data-tilt
+              href={link || undefined}
+              target={link ? "_blank" : undefined}
+              rel={link ? "noopener" : undefined}
+              data-cursor={link ? t.open : undefined}
+              aria-label={p.name}
+            >
+              <div class="window">
+                <div class="window__bar">
+                  <i></i><i></i><i></i>
+                  <span class="mono">{host(link) || p.name}</span>
+                </div>
+                <div class="window__body window__body--shot">
+                  <img src={p.image} alt={p.name} width="1400" height="875" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </a>
+          </article>
+        );
+      })
+    }
+
+    <div class="work__outro">
+      <p class="work__outro-big" set:html={t.workOutro} />
+      {
+        github && (
+          <a class="btn btn--accent" href={github.href} target="_blank" rel="noopener" data-magnetic="0.3">
+            {t.github} <span class="btn__arrow">↗</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="work__ui mono">
+    <span><b id="workIdx">00</b> / {total}</span>
+    <div class="work__bar"><span id="workBar"></span></div>
+  </div>
+</section>

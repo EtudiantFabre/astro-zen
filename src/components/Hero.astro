@@ -1,6 +1,6 @@
 ---
-import { settings, getContent } from "@i18n";
-import { formatSubscribers, whatsappLink } from "@lib/format";
+import { settings, getContent, getUi } from "@i18n";
+import { whatsappLink } from "@lib/format";
 import type { Locale } from "@types";
 
 interface Props {
@@ -8,58 +8,53 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const { hero, proofs } = getContent(locale).home;
+const { hero } = getContent(locale).home;
+const t = getUi(locale).fx;
 
-// La preuve « abonnés YouTube » est toujours en tête, alimentée par les réglages
-const proofItems = [
-  { value: formatSubscribers(locale), label: proofs.subscribersLabel },
-  ...proofs.items,
-];
+// Le nom affiché (Réglages) est découpé en deux lignes géantes
+const words = settings.name.trim().split(/\s+/);
+const first = words.slice(0, Math.ceil(words.length / 2)).join(" ");
+const second = words.slice(Math.ceil(words.length / 2)).join(" ");
 ---
 
-<section class="pt-20 pb-16 md:pt-28" id="hero">
-  <h1
-    class="mb-1.5 font-serif text-7xl font-bold tracking-tightest text-white sm:text-8xl md:mb-0 md:text-9xl"
-  >
-    {settings.name}
-  </h1>
-  <p
-    class="mb-8 font-serif text-4xl leading-11.5 font-bold tracking-tighter text-primary sm:text-5xl md:text-6xl"
-  >
-    {hero.specialty}
-  </p>
-  <p class="mb-5 font-serif text-2xl font-semibold text-white md:text-3xl">
-    {hero.headline}
-  </p>
-  <p class="mb-12 text-base font-normal text-neutral md:text-lg">
-    {hero.summary}
-  </p>
-
-  <div class="mb-14 flex flex-wrap items-center gap-4">
-    <a
-      class="inline-block rounded-full bg-primary px-8 py-5 text-sm leading-5 font-medium text-[#fff] transition-opacity hover:opacity-90"
-      href="#services">{hero.primaryCta}</a
-    >
-    <a
-      class="inline-block rounded-full border border-neutral/40 px-8 py-5 text-sm leading-5 font-medium text-white hover:border-primary hover:text-primary"
-      href={whatsappLink(hero.whatsappMessage)}
-      target="_blank"
-      rel="noopener"
-    >
-      {hero.secondaryCta}
-    </a>
+<section class="hero" id="top" data-scene="hero">
+  <div class="hero__meta mono">
+    <span>({t.portfolio} — ©{new Date().getFullYear()})</span>
+    <span class="hide-sm">{hero.specialty}</span>
+    <span>{t.coords}</span>
   </div>
 
-  <ul class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+  <h1 class="hero__title" aria-label={settings.name}>
+    <span class="hero__line" data-split-chars>{first}</span>
     {
-      proofItems.map(({ value, label }) => (
-        <li class="rounded-2xl border border-neutral/20 bg-[#1c232d]/85 px-4 py-4">
-          <span class="block font-serif text-3xl font-bold text-white">
-            {value}
-          </span>
-          <span class="text-xs text-neutral">{label}</span>
-        </li>
-      ))
+      second && (
+        <span class="hero__line hero__line--2">
+          <em class="hero__tag" set:html={t.heroTag} />
+          <span data-split-chars>{second}</span>
+        </span>
+      )
     }
-  </ul>
+  </h1>
+
+  <div class="hero__bottom">
+    <div class="hero__text">
+      <p class="hero__lead">
+        {t.rotatorPrefix} <span class="rotator" id="rotator">{t.rotator[0]}</span>
+      </p>
+      <p class="hero__summary"><strong>{hero.headline}</strong> {hero.summary}</p>
+    </div>
+    <div class="hero__ctas">
+      <a class="btn btn--accent" href="#services" data-magnetic="0.25">{hero.primaryCta} <span class="btn__arrow">↓</span></a>
+      <a class="btn btn--ghost" href={whatsappLink(hero.whatsappMessage)} target="_blank" rel="noopener" data-magnetic="0.25">
+        {hero.secondaryCta} <span class="btn__arrow">↗</span>
+      </a>
+    </div>
+    <a href="#about" class="hero__scroll" data-magnetic="0.4" data-cursor="Go" aria-label="Scroll">
+      <svg viewBox="0 0 120 120" class="hero__circle" aria-hidden="true">
+        <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"></path></defs>
+        <text><textPath href="#circ" textLength="286" lengthAdjust="spacing">{t.scroll}</textPath></text>
+      </svg>
+      <span class="hero__arrow">↓</span>
+    </a>
+  </div>
 </section>

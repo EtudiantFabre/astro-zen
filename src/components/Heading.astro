@@ -1,0 +1,13 @@
+---
+// Titre révélé ligne par ligne au scroll. Chaque ligne peut contenir du HTML (<em>…).
+interface Props {
+  lines: string[];
+  class?: string;
+}
+
+const { lines, class: className = "h2" } = Astro.props;
+---
+
+<h2 class={className}>
+  {lines.map((line) => <span class="ln"><span set:html={line} /></span>)}
+</h2>

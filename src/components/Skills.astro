@@ -1,29 +1,70 @@
 ---
-import Section from "./Section.astro";
-import type { SkillsContent } from "@types";
+// Compétences : marquees + liste + terminal interactif
+import SectionLabel from "./SectionLabel.astro";
+import Heading from "./Heading.astro";
+import { getContent, getUi } from "@i18n";
+import type { Locale } from "@types";
 
-type Props = SkillsContent;
+interface Props {
+  locale: Locale;
+  num: number;
+}
 
-const { title, items } = Astro.props;
+const { locale, num } = Astro.props;
+const { title, items } = getContent(locale).skills;
+const t = getUi(locale).fx;
+
+// Les deux bandes défilantes reprennent les compétences (sans les libellés trop longs)
+const all = items.flatMap((c) => c.items).filter((s) => s.length <= 22);
+const half = Math.ceil(all.length / 2);
+const rows = [all.slice(0, half), all.slice(half)];
 ---
 
-<Section text={title} href="skills">
-  <div class="flex flex-col gap-8">
-    {
-      items.map(({ category, items }) => (
-        <div>
-          <h3 class="mb-4 font-serif text-xl font-semibold text-white">
-            {category}
-          </h3>
-          <ul class="flex flex-wrap gap-3">
-            {items.map((item) => (
-              <li class="rounded-full border border-neutral/25 bg-[#1c232d]/85 px-4 py-2 text-sm text-neutral">
-                {item}
-              </li>
-            ))}
-          </ul>
+<section class="stack" id="skills" data-scene="stack">
+  {
+    rows.map((row, i) => (
+      <div class:list={["marquee", i === 1 && "marquee--outline"]} data-dir={i === 0 ? 1 : -1} aria-hidden="true">
+        <div class="marquee__inner">
+          {row.map((s) => (
+            <>
+              <span>{s}</span>
+              <i>✦</i>
+            </>
+          ))}
         </div>
-      ))
-    }
+      </div>
+    ))
+  }
+
+  <div class="stack__grid">
+    <div class="stack__left">
+      <SectionLabel num={num} text={title} />
+      <Heading lines={t.stackHeading} />
+      <dl class="skills">
+        {
+          items.map((c) => (
+            <div>
+              <dt class="mono">{c.category}</dt>
+              <dd>{c.items.join(" · ")}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="terminal" id="terminal" data-cursor={t.type}>
+      <div class="terminal__bar">
+        <i></i><i></i><i></i>
+        <span class="mono">fabrice@lome: ~</span>
+        <span class="terminal__hint mono">{t.interactive}</span>
+      </div>
+      <div class="terminal__body" id="termBody" data-lenis-prevent>
+        <div id="termOut"></div>
+        <label class="terminal__line">
+          <span class="terminal__prompt">fabrice@lome:~$</span>
+          <input id="termInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal" />
+        </label>
+      </div>
+    </div>
   </div>
-</Section>
+</section>
