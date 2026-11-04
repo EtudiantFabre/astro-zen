@@ -3,42 +3,6 @@
   "intro": "Courses, guides and starters built to get straight to the point: learn by building real projects.",
   "items": [
     {
-      "type": "formation",
-      "status": "soon",
-      "title": "Laravel from A to Z",
-      "description": "From your first route to deployment: build a complete application (auth, roles, API, payments) step by step.",
-      "link": "",
-      "cta": "Notify me",
-      "whatsappMessage": "Hi Fabrice, please let me know when the \"Laravel from A to Z\" course is out."
-    },
-    {
-      "type": "formation",
-      "status": "soon",
-      "title": "Django + Tailwind",
-      "description": "Build modern, polished Django apps with Tailwind CSS, all the way to production.",
-      "link": "",
-      "cta": "Notify me",
-      "whatsappMessage": "Hi Fabrice, please let me know when the \"Django + Tailwind\" course is out."
-    },
-    {
-      "type": "formation",
-      "status": "soon",
-      "title": "AI for developers: Claude Code & Agents",
-      "description": "Code faster and better with AI: Claude Code day to day, building agents in Python, useful automations.",
-      "link": "",
-      "cta": "Notify me",
-      "whatsappMessage": "Hi Fabrice, please let me know when the \"AI for developers\" course is out."
-    },
-    {
-      "type": "formation",
-      "status": "soon",
-      "title": "Full-Stack Bundle",
-      "description": "All courses together (Laravel, Django, AI) at a reduced price, to become a job-ready Full-Stack developer.",
-      "link": "",
-      "cta": "Notify me",
-      "whatsappMessage": "Hi Fabrice, I'm interested in the \"Full-Stack Bundle\", please let me know when it's out."
-    },
-    {
       "type": "ebook",
       "status": "soon",
       "title": "Guide: nail your final-year project defense",

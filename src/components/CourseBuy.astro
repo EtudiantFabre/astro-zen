@@ -1,0 +1,51 @@
+---
+// Bloc prix + boutons d'achat d'une formation (haut de page et carte latérale)
+import { getContent, getUi } from "@i18n";
+import { formatPrice } from "@lib/format";
+import { courseActions, isAvailable } from "@lib/courses";
+import type { CourseItem, Locale } from "@types";
+
+interface Props {
+  course: CourseItem;
+  locale: Locale;
+  /** Affiche la note de paiement / d'attente sous les boutons */
+  withNote?: boolean;
+}
+
+const { course, locale, withNote = true } = Astro.props;
+const t = getUi(locale).courses;
+const { paymentNote } = getContent(locale).courses;
+const available = isAvailable(course);
+const { primary, secondary } = courseActions(course, locale);
+const hasDiscount =
+  available &&
+  typeof course.price === "number" &&
+  typeof course.oldPrice === "number" &&
+  course.oldPrice > course.price;
+---
+
+<div class="course-buy">
+  <p class="course-buy__price">
+    {available ? formatPrice(course.price, locale) : <span class="mono course-buy__soon">{t.soon}</span>}
+    {
+      hasDiscount && (
+        <small>
+          {t.insteadOf} <s>{formatPrice(course.oldPrice, locale)}</s>
+        </small>
+      )
+    }
+  </p>
+  <div class="course-buy__btns">
+    <a class="btn btn--accent" href={primary.href} target="_blank" rel="noopener" data-magnetic="0.2">
+      {primary.label} <span class="btn__arrow">↗</span>
+    </a>
+    {
+      secondary && (
+        <a class="btn btn--ghost" href={secondary.href} target="_blank" rel="noopener">
+          {secondary.label} <span class="btn__arrow">↗</span>
+        </a>
+      )
+    }
+  </div>
+  {withNote && <p class="course-buy__note">{available ? paymentNote : t.soonHint}</p>}
+</div>

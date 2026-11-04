@@ -4,6 +4,7 @@ import SectionLabel from "./SectionLabel.astro";
 import Heading from "./Heading.astro";
 import { settings, getContent, getUi } from "@i18n";
 import { formatPrice, whatsappLink } from "@lib/format";
+import { courseUrl, coursesUrl, getCourses, isAvailable } from "@lib/courses";
 import type { Locale } from "@types";
 
 interface Props {
@@ -21,6 +22,9 @@ const ctaHref = (item: (typeof items)[number]) =>
   item.status === "available" && item.link ? item.link : whatsappLink(item.whatsappMessage);
 
 const newsletter = settings.socialLinks.find((s) => /substack|newsletter/i.test(s.href + s.text));
+
+// Formations (src/data/<langue>/courses.json) → leur page de vente sur le site
+const courses = getCourses(locale);
 ---
 
 <section class="academy" id="resources" data-scene="academy">
@@ -29,6 +33,20 @@ const newsletter = settings.socialLinks.find((s) => /substack|newsletter/i.test(
   <p class="section-intro">{intro}</p>
 
   <ul class="academy__list">
+    {
+      courses.map((c) => (
+        <li>
+          <a class="academy__row" href={courseUrl(locale, c.slug)} data-cursor={ui.courses.seeCourse}>
+            <span class="mono academy__type">{t.types.formation}</span>
+            <span class="academy__title">{c.title}</span>
+            <span class="academy__desc">{c.tagline}</span>
+            <span class="academy__tag mono">
+              {isAvailable(c) ? formatPrice(c.price, locale) : t.soon}
+            </span>
+          </a>
+        </li>
+      ))
+    }
     {
       items.map((item) => (
         <li>
@@ -48,6 +66,9 @@ const newsletter = settings.socialLinks.find((s) => /substack|newsletter/i.test(
       ))
     }
   </ul>
+  <a class="btn btn--accent academy__all" href={coursesUrl(locale)} data-magnetic="0.25">
+    {ui.courses.all} <span class="btn__arrow">→</span>
+  </a>
   {
     newsletter && (
       <a class="btn btn--ghost" href={newsletter.href} target="_blank" rel="noopener" data-magnetic="0.25">

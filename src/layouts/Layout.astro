@@ -10,15 +10,23 @@ import "../styles/sections.css";
 
 interface Props {
   locale: Locale;
+  /** Chemin de la page sans la langue (ex. "formations/laravel") — "" pour l'accueil */
+  path?: string;
+  /** Titre / description SEO propres à la page (sinon ceux de l'accueil) */
+  seo?: { title: string; description: string };
+  /** Données structurées supplémentaires (schema.org) */
+  structuredData?: Record<string, unknown>;
+  /** Afficher le preloader animé (accueil uniquement par défaut) */
+  loader?: boolean;
 }
 
-const { locale } = Astro.props;
+const { locale, path = "", seo, structuredData, loader = path === "" } = Astro.props;
 const content = getContent(locale);
 const ui = getUi(locale);
-const { title, description } = content.home.seo;
+const { title, description } = seo ?? content.home.seo;
 const { author, socialImage, siteUrl, name, email, phone, whatsapp, socialLinks } = settings;
 
-const canonicalURL = getAbsoluteLocaleUrl(locale, "");
+const canonicalURL = getAbsoluteLocaleUrl(locale, path);
 const ogImgUrl = new URL(socialImage, siteUrl).href;
 
 // Données structurées (SEO) : profil de la personne
@@ -86,10 +94,10 @@ const siteData = {
     <link rel="canonical" href={canonicalURL} />
     {
       LOCALES.map((l) => (
-        <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l, "")} />
+        <link rel="alternate" hreflang={l} href={getAbsoluteLocaleUrl(l, path)} />
       ))
     }
-    <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(DEFAULT_LOCALE, "")} />
+    <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(DEFAULT_LOCALE, path)} />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -115,19 +123,35 @@ const siteData = {
     <meta property="twitter:image" content={ogImgUrl} />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {
+      structuredData && (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+      )
+    }
   </head>
   <body class="is-loading">
-    <!-- Preloader -->
-    <div class="loader" id="loader" aria-hidden="true">
-      <div class="loader__inner">
-        <div class="loader__log mono" id="loaderLog"></div>
-        <div class="loader__bottom">
-          <span class="mono">{name}<br />{ui.fx.portfolio} ©{new Date().getFullYear()}</span>
-          <span class="loader__count" id="loaderCount">000</span>
+    {
+      loader && (
+        <div class="loader" id="loader" aria-hidden="true">
+          <div class="loader__inner">
+            <div class="loader__log mono" id="loaderLog" />
+            <div class="loader__bottom">
+              <span class="mono">
+                {name}
+                <br />
+                {ui.fx.portfolio} ©{new Date().getFullYear()}
+              </span>
+              <span class="loader__count" id="loaderCount">
+                000
+              </span>
+            </div>
+            <div class="loader__bar">
+              <span id="loaderBar" />
+            </div>
+          </div>
         </div>
-        <div class="loader__bar"><span id="loaderBar"></span></div>
-      </div>
-    </div>
+      )
+    }
 
     <!-- Calques globaux -->
     <canvas id="webgl" aria-hidden="true"></canvas>
@@ -139,7 +163,7 @@ const siteData = {
       <div class="cursor__ring"><span class="cursor__label"></span></div>
     </div>
 
-    <Header locale={locale} />
+    <Header locale={locale} path={path} />
 
     <main>
       <slot />

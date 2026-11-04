@@ -7,6 +7,7 @@ import settingsJson from "../data/settings.json";
 import frHome from "../data/fr/home.json";
 import frServices from "../data/fr/services.json";
 import frResources from "../data/fr/resources.json";
+import frCourses from "../data/fr/courses.json";
 import frProjects from "../data/fr/projects.json";
 import frYoutube from "../data/fr/youtube.json";
 import frExperience from "../data/fr/experience.json";
@@ -18,6 +19,7 @@ import frContact from "../data/fr/contact.json";
 import enHome from "../data/en/home.json";
 import enServices from "../data/en/services.json";
 import enResources from "../data/en/resources.json";
+import enCourses from "../data/en/courses.json";
 import enProjects from "../data/en/projects.json";
 import enYoutube from "../data/en/youtube.json";
 import enExperience from "../data/en/experience.json";
@@ -41,6 +43,7 @@ const content: Record<Locale, SiteContent> = {
     home: frHome,
     services: frServices,
     resources: frResources,
+    courses: frCourses,
     projects: frProjects,
     youtube: frYoutube,
     experience: frExperience,
@@ -53,6 +56,7 @@ const content: Record<Locale, SiteContent> = {
     home: enHome,
     services: enServices,
     resources: enResources,
+    courses: enCourses,
     projects: enProjects,
     youtube: enYoutube,
     experience: enExperience,

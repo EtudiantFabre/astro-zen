@@ -1,0 +1,269 @@
+{
+  "title": "Courses",
+  "intro": "Hands-on courses to learn by building real projects: videos at your own pace, live sessions to ask your questions, and support until you get results.",
+  "paymentNote": "Pay by card through the platform, or by Mobile Money (Flooz, T-Money) directly on WhatsApp. Access sent within 24 h.",
+  "items": [
+    {
+      "slug": "laravel",
+      "status": "soon",
+      "featured": true,
+      "title": "Laravel from A to Z",
+      "tagline": "From your first route to deployment: build a complete application, step by step.",
+      "description": "You learn Laravel by building a real management app: authentication, roles, REST API, Mobile Money payments and deployment. Each module ends with a working feature, and the live sessions help you get unstuck on your own project.",
+      "level": "Beginner → intermediate",
+      "duration": "≈ 15 h of video",
+      "format": "Videos + live sessions",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "4 live sessions of 2 h (Q&A, code review, exercise walkthroughs)",
+      "nextCohort": "",
+      "outcomes": [
+        "Build a complete Laravel application, from models to UI",
+        "Set up authentication, roles and permissions",
+        "Build a clean, secure REST API",
+        "Integrate payments (Mobile Money, card)",
+        "Deploy your application to production"
+      ],
+      "includes": [
+        "All videos, lifetime access",
+        "Source code for every module",
+        "Live Q&A sessions",
+        "WhatsApp support group",
+        "Certificate of completion"
+      ],
+      "audience": [
+        "Computer science students who want a solid project for their defense",
+        "PHP developers moving to a modern framework",
+        "Freelancers who want to ship faster and cleaner"
+      ],
+      "prerequisites": [
+        "PHP basics (variables, functions, arrays)",
+        "Some HTML and CSS",
+        "A computer with at least 4 GB of RAM"
+      ],
+      "modules": [
+        {
+          "title": "The foundations",
+          "lessons": ["Installing and structuring a project", "Routes, controllers and Blade views", "Migrations and Eloquent"]
+        },
+        {
+          "title": "A complete application",
+          "lessons": ["Forms and validation", "Model relationships", "File uploads"]
+        },
+        {
+          "title": "Users and security",
+          "lessons": ["Authentication", "Roles and permissions", "Security best practices"]
+        },
+        {
+          "title": "API and integrations",
+          "lessons": ["REST API with Sanctum", "Mobile Money payment integration", "Emails and notifications"]
+        },
+        {
+          "title": "Going to production",
+          "lessons": ["Essential tests", "Deploying to shared hosting or a VPS", "Maintenance and monitoring"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "How long do I have access?",
+          "answer": "For life, including video updates."
+        },
+        {
+          "question": "I'm new to PHP, can I follow along?",
+          "answer": "You need PHP basics. If you're unsure, message me on WhatsApp and we'll figure it out."
+        },
+        {
+          "question": "How do the live sessions work?",
+          "answer": "Small-group video calls. You ask questions, we go over exercises and look at your code. Replays are available."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Enroll",
+      "whatsappMessage": "Hi Fabrice, I'm interested in the \"Laravel from A to Z\" course."
+    },
+    {
+      "slug": "django-tailwind",
+      "status": "soon",
+      "featured": false,
+      "title": "Django + Tailwind",
+      "tagline": "Build modern, polished Django apps with Tailwind CSS, all the way to production.",
+      "description": "A project-based course: you build a complete Django application with a modern Tailwind CSS interface, a dashboard, an API and a deployment. The live sessions help you apply it to your own project.",
+      "level": "Beginner → intermediate",
+      "duration": "≈ 12 h of video",
+      "format": "Videos + live sessions",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "3 live sessions of 2 h (Q&A, code review)",
+      "nextCohort": "",
+      "outcomes": [
+        "Structure a Django project properly",
+        "Build modern interfaces with Tailwind CSS",
+        "Handle users, forms and the Django admin",
+        "Build an API with Django REST Framework",
+        "Put your application online"
+      ],
+      "includes": [
+        "All videos, lifetime access",
+        "Source code for every module",
+        "Live Q&A sessions",
+        "WhatsApp support group",
+        "Certificate of completion"
+      ],
+      "audience": [
+        "Students who want a modern Python project",
+        "Python developers moving into web development",
+        "Developers who want great UIs without fighting CSS"
+      ],
+      "prerequisites": [
+        "Python basics",
+        "Some HTML and CSS"
+      ],
+      "modules": [
+        {
+          "title": "Getting started with Django",
+          "lessons": ["Project, apps and settings", "Models, views and templates", "The Django admin"]
+        },
+        {
+          "title": "A modern UI with Tailwind",
+          "lessons": ["Adding Tailwind to Django", "Reusable components", "Responsive design and dark mode"]
+        },
+        {
+          "title": "Real application features",
+          "lessons": ["Forms and validation", "Authentication and profiles", "Dashboard"]
+        },
+        {
+          "title": "API and production",
+          "lessons": ["Django REST Framework", "Static and media files", "Deployment"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "How long do I have access?",
+          "answer": "For life, including video updates."
+        },
+        {
+          "question": "Do I need to know Tailwind first?",
+          "answer": "No, we start Tailwind from scratch."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Enroll",
+      "whatsappMessage": "Hi Fabrice, I'm interested in the \"Django + Tailwind\" course."
+    },
+    {
+      "slug": "ia-developpeurs",
+      "status": "soon",
+      "featured": false,
+      "title": "AI for developers: Claude Code & Agents",
+      "tagline": "Code faster and better with AI: Claude Code every day, Python agents, useful automations.",
+      "description": "Learn to bring AI into your developer workflow: use Claude Code effectively on real projects, build your own agents in Python and automate repetitive tasks. Practical first, with concrete use cases.",
+      "level": "Intermediate",
+      "duration": "≈ 8 h of video",
+      "format": "Videos + live sessions",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "2 live sessions of 2 h (demos, Q&A, case studies)",
+      "nextCohort": "",
+      "outcomes": [
+        "Use Claude Code daily without losing control of your code",
+        "Write good instructions and set up your environment",
+        "Build a Python AI agent that uses tools",
+        "Automate useful tasks (reports, triage, replies)"
+      ],
+      "includes": [
+        "All videos, lifetime access",
+        "Code and configuration examples",
+        "Live sessions with demos",
+        "WhatsApp support group"
+      ],
+      "audience": [
+        "Developers who want to save time with AI",
+        "Students who want to stand out",
+        "Freelancers who want to ship faster"
+      ],
+      "prerequisites": [
+        "Know how to program (Python preferred)",
+        "Comfortable with the terminal"
+      ],
+      "modules": [
+        {
+          "title": "Claude Code every day",
+          "lessons": ["Installation and first steps", "Writing good requests", "Working on an existing project"]
+        },
+        {
+          "title": "Going further",
+          "lessons": ["Instruction files and memory", "Tools, commands and automations", "Reviewing and testing generated code"]
+        },
+        {
+          "title": "Building agents in Python",
+          "lessons": ["Calling a model from Python", "Giving an agent tools", "A useful agent end to end"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Do I need a paid AI subscription?",
+          "answer": "A subscription or API credits are needed to practice. I cover the cheapest options in the course."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Enroll",
+      "whatsappMessage": "Hi Fabrice, I'm interested in the \"AI for developers\" course."
+    },
+    {
+      "slug": "pack-full-stack",
+      "status": "soon",
+      "featured": false,
+      "title": "Full-Stack Bundle",
+      "tagline": "All courses together (Laravel, Django, AI) at a reduced price, to become a job-ready full-stack developer.",
+      "description": "The bundle includes all three courses — Laravel from A to Z, Django + Tailwind and AI for developers — with all their live sessions, at a lower price than buying them separately.",
+      "level": "Beginner → advanced",
+      "duration": "≈ 35 h of video",
+      "format": "Videos + live sessions + follow-up",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "All live sessions from the three courses",
+      "nextCohort": "",
+      "outcomes": [
+        "Master two in-demand back-end frameworks",
+        "Build and deploy complete applications",
+        "Work faster with AI"
+      ],
+      "includes": [
+        "All 3 full courses, lifetime access",
+        "All live sessions",
+        "WhatsApp support group",
+        "Certificates of completion"
+      ],
+      "audience": [
+        "Students who want a complete profile when they graduate",
+        "Developers changing careers"
+      ],
+      "prerequisites": [
+        "Programming basics (PHP or Python)"
+      ],
+      "modules": [
+        {
+          "title": "Laravel from A to Z",
+          "lessons": ["Foundations", "Complete application", "Security, API and deployment"]
+        },
+        {
+          "title": "Django + Tailwind",
+          "lessons": ["Getting started", "Modern UI", "API and production"]
+        },
+        {
+          "title": "AI for developers",
+          "lessons": ["Claude Code every day", "Going further", "Python agents"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can I start with one course and upgrade to the bundle later?",
+          "answer": "Yes, message me: what you already paid is deducted from the bundle."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Get the bundle",
+      "whatsappMessage": "Hi Fabrice, I'm interested in the \"Full-Stack Bundle\"."
+    }
+  ]
+}

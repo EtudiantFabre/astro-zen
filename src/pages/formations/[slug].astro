@@ -1,0 +1,13 @@
+---
+// Une page de vente par formation (src/data/fr/courses.json)
+import type { GetStaticPaths } from "astro";
+import CoursePage from "@components/CoursePage.astro";
+import { getCourses } from "@lib/courses";
+
+export const getStaticPaths = (() =>
+  getCourses("fr").map((course) => ({ params: { slug: course.slug }, props: { course } }))) satisfies GetStaticPaths;
+
+const { course } = Astro.props;
+---
+
+<CoursePage locale="fr" course={course} />

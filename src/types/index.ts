@@ -79,6 +79,53 @@ export interface ResourcesContent {
   items: ResourceItem[];
 }
 
+/** Une formation vendue, avec sa page de vente /formations/<slug> */
+export interface CourseModule {
+  title: string;
+  lessons: string[];
+}
+
+export interface CourseItem {
+  /** Identifiant de l'URL (/formations/<slug>), identique en FR et EN */
+  slug: string;
+  status: ResourceStatus | string;
+  featured?: boolean;
+  title: string;
+  /** Accroche courte (cartes, haut de page) */
+  tagline: string;
+  /** Présentation détaillée (haut de la page de vente) */
+  description: string;
+  level: string;
+  duration: string;
+  /** Format : vidéos, lives, accompagnement… */
+  format: string;
+  price?: number | null;
+  /** Prix barré (promotion) */
+  oldPrice?: number | null;
+  /** Infos sur les sessions live (ex. « 4 lives de 2 h, le samedi à 10 h GMT ») */
+  liveSessions?: string;
+  /** Prochaine session / cohorte (texte libre) */
+  nextCohort?: string;
+  outcomes: string[];
+  includes: string[];
+  audience: string[];
+  prerequisites: string[];
+  modules: CourseModule[];
+  faq: { question: string; answer: string }[];
+  /** Lien de paiement sur une plateforme externe (Chariow, Selar, Gumroad…) */
+  paymentLink?: string;
+  cta: string;
+  whatsappMessage: string;
+}
+
+export interface CoursesContent {
+  title: string;
+  intro: string;
+  /** Note de paiement affichée sous les boutons d'achat */
+  paymentNote?: string;
+  items: CourseItem[];
+}
+
 export interface ProjectItem {
   name: string;
   summary: string;
@@ -145,6 +192,7 @@ export interface SiteContent {
   home: HomeContent;
   services: ServicesContent;
   resources: ResourcesContent;
+  courses: CoursesContent;
   projects: ProjectsContent;
   youtube: YoutubeContent;
   experience: ExperienceContent;

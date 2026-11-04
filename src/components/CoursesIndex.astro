@@ -1,0 +1,54 @@
+---
+// Catalogue des formations (/formations) — commun aux deux langues
+import Layout from "@layouts/Layout.astro";
+import Footer from "./Footer.astro";
+import Heading from "./Heading.astro";
+import SectionLabel from "./SectionLabel.astro";
+import { settings, getContent, getUi } from "@i18n";
+import { formatPrice } from "@lib/format";
+import { COURSES_PATH, courseUrl, isAvailable } from "@lib/courses";
+import type { Locale } from "@types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { title, intro, items } = getContent(locale).courses;
+const ui = getUi(locale);
+const t = ui.courses;
+---
+
+<Layout locale={locale} path={COURSES_PATH} seo={{ title: `${title} · ${settings.name}`, description: intro }}>
+  <section class="course-hero" id="top" data-scene="course">
+    <div data-intro><SectionLabel num={1} text={title} /></div>
+    <div data-intro><Heading lines={ui.fx.coursesHeading} /></div>
+    <p class="section-intro" data-intro>{intro}</p>
+
+    <div class="services__grid courses__grid">
+      {
+        items.map((c, i) => (
+          <a class:list={["service", c.featured && "is-featured"]} href={courseUrl(locale, c.slug)} data-spotlight data-intro>
+            <div class="service__top">
+              <span class="mono service__num">{String(i + 1).padStart(2, "0")}</span>
+              {c.featured && <span class="service__badge mono">{ui.price.popular}</span>}
+            </div>
+            <h2 class="service__title">{c.title}</h2>
+            <p class="service__price">{isAvailable(c) ? formatPrice(c.price, locale) : <small>{t.soon}</small>}</p>
+            <p class="service__desc">{c.tagline}</p>
+            <p class="mono courses__meta">
+              {[c.level, c.duration, c.format].filter(Boolean).join(" · ")}
+            </p>
+            <span class="service__cta">
+              {t.seeCourse} <span>→</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="course-foot">
+    <Footer locale={locale} />
+  </section>
+</Layout>

@@ -1,0 +1,269 @@
+{
+  "title": "Formations",
+  "intro": "Des formations pratiques pour apprendre en construisant de vrais projets : vidéos à suivre à ton rythme, sessions live pour poser tes questions et un accompagnement jusqu'au résultat.",
+  "paymentNote": "Paiement par carte via la plateforme, ou par Mobile Money (Flooz, T-Money) directement sur WhatsApp. Accès envoyé sous 24 h.",
+  "items": [
+    {
+      "slug": "laravel",
+      "status": "soon",
+      "featured": true,
+      "title": "Laravel de A à Z",
+      "tagline": "De la première route au déploiement : construis une application complète, étape par étape.",
+      "description": "Tu apprends Laravel en construisant une vraie application de gestion : authentification, rôles, API REST, paiement Mobile Money et mise en production. Chaque module se termine par une fonctionnalité qui marche, et les sessions live servent à débloquer ton propre projet.",
+      "level": "Débutant → intermédiaire",
+      "duration": "≈ 15 h de vidéo",
+      "format": "Vidéos + lives",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "4 sessions live de 2 h (questions, revue de code, correction d'exercices)",
+      "nextCohort": "",
+      "outcomes": [
+        "Créer une application Laravel complète, du modèle à l'interface",
+        "Mettre en place l'authentification, les rôles et les permissions",
+        "Construire une API REST propre et sécurisée",
+        "Intégrer un paiement (Mobile Money, carte)",
+        "Déployer ton application en production"
+      ],
+      "includes": [
+        "Toutes les vidéos, accès à vie",
+        "Le code source de chaque module",
+        "Sessions live avec questions/réponses",
+        "Groupe d'entraide WhatsApp",
+        "Attestation de fin de formation"
+      ],
+      "audience": [
+        "Étudiants en informatique qui veulent un projet solide pour leur soutenance",
+        "Développeurs PHP qui veulent passer à un framework moderne",
+        "Freelances qui veulent livrer plus vite et plus proprement"
+      ],
+      "prerequisites": [
+        "Bases de PHP (variables, fonctions, tableaux)",
+        "Notions de HTML et CSS",
+        "Un ordinateur avec 4 Go de RAM minimum"
+      ],
+      "modules": [
+        {
+          "title": "Les fondations",
+          "lessons": ["Installation et structure d'un projet", "Routes, contrôleurs et vues Blade", "Migrations et Eloquent"]
+        },
+        {
+          "title": "Une application complète",
+          "lessons": ["Formulaires et validation", "Relations entre modèles", "Upload de fichiers"]
+        },
+        {
+          "title": "Utilisateurs et sécurité",
+          "lessons": ["Authentification", "Rôles et permissions", "Bonnes pratiques de sécurité"]
+        },
+        {
+          "title": "API et intégrations",
+          "lessons": ["API REST avec Sanctum", "Intégration d'un paiement Mobile Money", "Envoi d'emails et de notifications"]
+        },
+        {
+          "title": "Mise en production",
+          "lessons": ["Tests essentiels", "Déploiement sur un hébergement ou un VPS", "Maintenance et suivi"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Combien de temps ai-je accès à la formation ?",
+          "answer": "À vie, y compris aux mises à jour des vidéos."
+        },
+        {
+          "question": "Je débute en PHP, est-ce que je peux suivre ?",
+          "answer": "Il faut les bases de PHP. Si tu hésites, écris-moi sur WhatsApp et on regarde ensemble."
+        },
+        {
+          "question": "Comment se passent les sessions live ?",
+          "answer": "En visio, en petit groupe. Tu poses tes questions, on corrige les exercices et on regarde ton code. Les replays sont disponibles."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Je m'inscris",
+      "whatsappMessage": "Bonjour Fabrice, je suis intéressé(e) par la formation « Laravel de A à Z »."
+    },
+    {
+      "slug": "django-tailwind",
+      "status": "soon",
+      "featured": false,
+      "title": "Django + Tailwind",
+      "tagline": "Crée des applications Django modernes et soignées avec Tailwind CSS, jusqu'à la mise en production.",
+      "description": "Une formation orientée projet : tu construis une application Django complète avec une interface moderne en Tailwind CSS, un tableau de bord, une API et un déploiement. Les lives t'aident à adapter tout ça à ton propre projet.",
+      "level": "Débutant → intermédiaire",
+      "duration": "≈ 12 h de vidéo",
+      "format": "Vidéos + lives",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "3 sessions live de 2 h (questions, revue de code)",
+      "nextCohort": "",
+      "outcomes": [
+        "Structurer un projet Django proprement",
+        "Construire des interfaces modernes avec Tailwind CSS",
+        "Gérer les utilisateurs, les formulaires et l'admin Django",
+        "Créer une API avec Django REST Framework",
+        "Mettre ton application en ligne"
+      ],
+      "includes": [
+        "Toutes les vidéos, accès à vie",
+        "Le code source de chaque module",
+        "Sessions live avec questions/réponses",
+        "Groupe d'entraide WhatsApp",
+        "Attestation de fin de formation"
+      ],
+      "audience": [
+        "Étudiants qui veulent un projet Python moderne",
+        "Développeurs Python qui veulent faire du web",
+        "Développeurs qui veulent de belles interfaces sans se perdre en CSS"
+      ],
+      "prerequisites": [
+        "Bases de Python",
+        "Notions de HTML et CSS"
+      ],
+      "modules": [
+        {
+          "title": "Bien démarrer avec Django",
+          "lessons": ["Projet, apps et configuration", "Modèles, vues et templates", "L'admin Django"]
+        },
+        {
+          "title": "Une interface moderne avec Tailwind",
+          "lessons": ["Intégrer Tailwind dans Django", "Composants réutilisables", "Responsive et thème sombre"]
+        },
+        {
+          "title": "Fonctionnalités d'une vraie application",
+          "lessons": ["Formulaires et validation", "Authentification et profils", "Tableau de bord"]
+        },
+        {
+          "title": "API et mise en production",
+          "lessons": ["Django REST Framework", "Fichiers statiques et médias", "Déploiement"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Combien de temps ai-je accès à la formation ?",
+          "answer": "À vie, y compris aux mises à jour des vidéos."
+        },
+        {
+          "question": "Faut-il connaître Tailwind avant ?",
+          "answer": "Non, on part de zéro sur Tailwind."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Je m'inscris",
+      "whatsappMessage": "Bonjour Fabrice, je suis intéressé(e) par la formation « Django + Tailwind »."
+    },
+    {
+      "slug": "ia-developpeurs",
+      "status": "soon",
+      "featured": false,
+      "title": "IA pour développeurs : Claude Code & Agents",
+      "tagline": "Code plus vite et mieux avec l'IA : Claude Code au quotidien, agents en Python, automatisations utiles.",
+      "description": "Apprends à intégrer l'IA dans ton travail de développeur : utiliser Claude Code efficacement sur de vrais projets, créer tes propres agents en Python et automatiser les tâches répétitives. Pratique avant tout, avec des cas concrets.",
+      "level": "Intermédiaire",
+      "duration": "≈ 8 h de vidéo",
+      "format": "Vidéos + lives",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "2 sessions live de 2 h (démos, questions, cas pratiques)",
+      "nextCohort": "",
+      "outcomes": [
+        "Utiliser Claude Code au quotidien sans perdre la maîtrise de ton code",
+        "Écrire de bonnes instructions et configurer ton environnement",
+        "Créer un agent IA en Python qui utilise des outils",
+        "Automatiser des tâches utiles (rapports, tri, réponses)"
+      ],
+      "includes": [
+        "Toutes les vidéos, accès à vie",
+        "Les exemples de code et de configuration",
+        "Sessions live avec démonstrations",
+        "Groupe d'entraide WhatsApp"
+      ],
+      "audience": [
+        "Développeurs qui veulent gagner du temps avec l'IA",
+        "Étudiants qui veulent se démarquer",
+        "Freelances qui veulent livrer plus vite"
+      ],
+      "prerequisites": [
+        "Savoir programmer (Python de préférence)",
+        "Être à l'aise avec le terminal"
+      ],
+      "modules": [
+        {
+          "title": "Claude Code au quotidien",
+          "lessons": ["Installation et premiers pas", "Bien formuler ses demandes", "Travailler sur un projet existant"]
+        },
+        {
+          "title": "Aller plus loin",
+          "lessons": ["Fichiers d'instructions et mémoire", "Outils, commandes et automatisations", "Relire et tester le code produit"]
+        },
+        {
+          "title": "Créer ses agents en Python",
+          "lessons": ["Appeler un modèle depuis Python", "Donner des outils à un agent", "Un agent utile de bout en bout"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Faut-il payer un abonnement IA ?",
+          "answer": "Un abonnement ou un crédit API est nécessaire pour pratiquer. Je t'explique les options les moins chères dans la formation."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Je m'inscris",
+      "whatsappMessage": "Bonjour Fabrice, je suis intéressé(e) par la formation « IA pour développeurs »."
+    },
+    {
+      "slug": "pack-full-stack",
+      "status": "soon",
+      "featured": false,
+      "title": "Pack Full-Stack",
+      "tagline": "Toutes les formations réunies (Laravel, Django, IA) à prix réduit, pour devenir un développeur Full-Stack opérationnel.",
+      "description": "Le pack regroupe les trois formations — Laravel de A à Z, Django + Tailwind et IA pour développeurs — avec toutes leurs sessions live, à un prix réduit par rapport à l'achat séparé.",
+      "level": "Débutant → avancé",
+      "duration": "≈ 35 h de vidéo",
+      "format": "Vidéos + lives + suivi",
+      "price": null,
+      "oldPrice": null,
+      "liveSessions": "Toutes les sessions live des trois formations",
+      "nextCohort": "",
+      "outcomes": [
+        "Maîtriser deux frameworks back-end très demandés",
+        "Construire et déployer des applications complètes",
+        "Travailler plus vite grâce à l'IA"
+      ],
+      "includes": [
+        "Les 3 formations complètes, accès à vie",
+        "Toutes les sessions live",
+        "Groupe d'entraide WhatsApp",
+        "Attestations de fin de formation"
+      ],
+      "audience": [
+        "Étudiants qui veulent un profil complet à la sortie de l'école",
+        "Développeurs en reconversion"
+      ],
+      "prerequisites": [
+        "Bases de programmation (PHP ou Python)"
+      ],
+      "modules": [
+        {
+          "title": "Laravel de A à Z",
+          "lessons": ["Fondations", "Application complète", "Sécurité, API et déploiement"]
+        },
+        {
+          "title": "Django + Tailwind",
+          "lessons": ["Bien démarrer", "Interface moderne", "API et mise en production"]
+        },
+        {
+          "title": "IA pour développeurs",
+          "lessons": ["Claude Code au quotidien", "Aller plus loin", "Agents en Python"]
+        }
+      ],
+      "faq": [
+        {
+          "question": "Puis-je commencer par une seule formation et passer au pack ensuite ?",
+          "answer": "Oui, écris-moi : le prix déjà payé est déduit du pack."
+        }
+      ],
+      "paymentLink": "",
+      "cta": "Je prends le pack",
+      "whatsappMessage": "Bonjour Fabrice, le « Pack Full-Stack » m'intéresse."
+    }
+  ]
+}

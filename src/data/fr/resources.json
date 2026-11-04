@@ -3,42 +3,6 @@
   "intro": "Des formations, guides et starters pensés pour aller droit au but : apprendre en construisant de vrais projets.",
   "items": [
     {
-      "type": "formation",
-      "status": "soon",
-      "title": "Laravel de A à Z",
-      "description": "De la première route au déploiement : construis une application complète (auth, rôles, API, paiement) étape par étape.",
-      "link": "",
-      "cta": "Être prévenu(e)",
-      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie de la formation « Laravel de A à Z »."
-    },
-    {
-      "type": "formation",
-      "status": "soon",
-      "title": "Django + Tailwind",
-      "description": "Crée des applications Django modernes et soignées avec Tailwind CSS, jusqu'à la mise en production.",
-      "link": "",
-      "cta": "Être prévenu(e)",
-      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie de la formation « Django + Tailwind »."
-    },
-    {
-      "type": "formation",
-      "status": "soon",
-      "title": "IA pour développeurs : Claude Code & Agents",
-      "description": "Code plus vite et mieux avec l'IA : Claude Code au quotidien, création d'agents en Python, automatisations utiles.",
-      "link": "",
-      "cta": "Être prévenu(e)",
-      "whatsappMessage": "Bonjour Fabrice, préviens-moi à la sortie de la formation « IA pour développeurs »."
-    },
-    {
-      "type": "formation",
-      "status": "soon",
-      "title": "Pack Full-Stack",
-      "description": "Toutes les formations réunies (Laravel, Django, IA) à prix réduit, pour devenir un développeur Full-Stack opérationnel.",
-      "link": "",
-      "cta": "Être prévenu(e)",
-      "whatsappMessage": "Bonjour Fabrice, le « Pack Full-Stack » m'intéresse, préviens-moi à sa sortie."
-    },
-    {
       "type": "ebook",
       "status": "soon",
       "title": "Guide : réussir sa soutenance de projet informatique",

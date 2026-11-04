@@ -5,17 +5,23 @@ import type { Locale } from "@types";
 
 interface Props {
   locale: Locale;
+  /** Chemin de la page courante sans la langue ("" = accueil) */
+  path?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, path = "" } = Astro.props;
 const t = getUi(locale);
 
+// Sur l'accueil : ancres internes ; sur les autres pages : retour vers la section de l'accueil
+const isHome = path === "";
+const home = isHome ? "" : getRelativeLocaleUrl(locale, "");
+
 const navLinks = [
-  { text: t.nav.projects, href: "#projects" },
-  { text: t.nav.services, href: "#services" },
-  { text: t.nav.resources, href: "#resources" },
-  { text: t.nav.youtube, href: "#youtube" },
-  { text: t.nav.contact, href: "#contact" },
+  { text: t.nav.projects, href: `${home}#projects` },
+  { text: t.nav.services, href: `${home}#services` },
+  { text: t.nav.resources, href: `${home}#resources` },
+  { text: t.nav.youtube, href: `${home}#youtube` },
+  { text: t.nav.contact, href: `${home}#contact` },
 ];
 
 const initials = settings.name
@@ -27,7 +33,7 @@ const initials = settings.name
 ---
 
 <header class="nav" id="nav">
-  <a href="#top" class="nav__logo" data-magnetic="0.3" aria-label={t.header.homeLink}>
+  <a href={isHome ? "#top" : home} class="nav__logo" data-magnetic="0.3" aria-label={t.header.homeLink}>
     <span class="nav__mark">{initials}</span>
     <span class="nav__name mono">{settings.name}</span>
   </a>
@@ -42,7 +48,7 @@ const initials = settings.name
       {
         LOCALES.map((l) => (
           <a
-            href={getRelativeLocaleUrl(l, "")}
+            href={getRelativeLocaleUrl(l, path)}
             hreflang={l}
             lang={l}
             aria-current={l === locale ? "true" : undefined}

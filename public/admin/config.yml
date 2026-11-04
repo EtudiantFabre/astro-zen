@@ -169,7 +169,7 @@ collections:
           - { name: note, label: Note sous les services, widget: text, i18n: true, required: false }
 
       - name: resources
-        label: Formations & ressources
+        label: Ressources (e-books, templates)
         file: src/data/{{locale}}/resources.json
         i18n: true
         fields:
@@ -211,6 +211,111 @@ collections:
                 hint: "Utilisé si « Disponible ». Sinon le bouton ouvre WhatsApp (liste d'attente)."
               - { name: cta, label: Texte du bouton, widget: string, i18n: true }
               - { name: whatsappMessage, label: Message WhatsApp pré-rempli, widget: text, i18n: true, required: false }
+
+      - name: courses
+        label: Formations (pages de vente)
+        file: src/data/{{locale}}/courses.json
+        i18n: true
+        fields:
+          - { name: title, label: Titre de la page catalogue, widget: string, i18n: true }
+          - { name: intro, label: Introduction du catalogue, widget: text, i18n: true }
+          - name: paymentNote
+            label: Note de paiement
+            widget: text
+            i18n: true
+            required: false
+            hint: "Affichée sous les boutons d'achat quand une formation est disponible."
+          - name: items
+            label: Formations
+            widget: list
+            i18n: duplicate
+            summary: "{{title}} ({{status}})"
+            fields:
+              - name: slug
+                label: Identifiant d'URL
+                widget: string
+                hint: "Ex. laravel → fabricetoyi.dev/formations/laravel. Minuscules, chiffres et tirets. Ne pas changer après publication."
+                pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Minuscules, chiffres et tirets uniquement"]
+              - name: status
+                label: Statut
+                widget: select
+                default: soon
+                options:
+                  - { label: "Bientôt disponible (liste d'attente)", value: soon }
+                  - { label: "Disponible (en vente)", value: available }
+              - { name: featured, label: Mettre en avant (« Le plus demandé »), widget: boolean, default: false, required: false }
+              - { name: title, label: Titre, widget: string, i18n: true }
+              - { name: tagline, label: Accroche courte, widget: text, i18n: true }
+              - { name: description, label: Présentation détaillée, widget: text, i18n: true }
+              - { name: level, label: Niveau, widget: string, i18n: true, hint: "Ex. Débutant → intermédiaire" }
+              - { name: duration, label: Durée, widget: string, i18n: true, hint: "Ex. ≈ 15 h de vidéo" }
+              - { name: format, label: Format, widget: string, i18n: true, hint: "Ex. Vidéos + lives" }
+              - name: price
+                label: Prix
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+                hint: "Montant sans devise. Affiché seulement si « Disponible ». 0 = « Gratuit »."
+              - name: oldPrice
+                label: Ancien prix (barré)
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+                hint: "Optionnel, pour afficher une promotion. Doit être supérieur au prix."
+              - { name: liveSessions, label: Sessions live, widget: text, i18n: true, required: false, hint: "Ex. 4 sessions live de 2 h, le samedi à 10 h (GMT)" }
+              - { name: nextCohort, label: Prochaine session, widget: string, i18n: true, required: false, hint: "Ex. Démarrage le 15 janvier 2027. Laisser vide pour masquer." }
+              - name: outcomes
+                label: Ce que l'élève saura faire
+                widget: list
+                i18n: true
+                field: { name: item, label: Objectif, widget: string }
+              - name: includes
+                label: Ce qui est inclus
+                widget: list
+                i18n: true
+                field: { name: item, label: Élément, widget: string }
+              - name: audience
+                label: Pour qui ?
+                widget: list
+                i18n: true
+                field: { name: item, label: Public, widget: string }
+              - name: prerequisites
+                label: Prérequis
+                widget: list
+                i18n: true
+                field: { name: item, label: Prérequis, widget: string }
+              - name: modules
+                label: Programme (modules)
+                widget: list
+                i18n: true
+                summary: "{{title}}"
+                fields:
+                  - { name: title, label: Titre du module, widget: string }
+                  - name: lessons
+                    label: Leçons
+                    widget: list
+                    field: { name: lesson, label: Leçon, widget: string }
+              - name: faq
+                label: Questions fréquentes
+                widget: list
+                i18n: true
+                summary: "{{question}}"
+                fields:
+                  - { name: question, label: Question, widget: string }
+                  - { name: answer, label: Réponse, widget: text }
+              - name: paymentLink
+                label: Lien de paiement (plateforme)
+                widget: string
+                required: false
+                hint: "Lien Chariow, Selar, Gumroad… Si vide, le bouton d'achat ouvre WhatsApp (paiement Mobile Money)."
+              - { name: cta, label: Texte du bouton d'achat, widget: string, i18n: true }
+              - name: whatsappMessage
+                label: Message WhatsApp pré-rempli
+                widget: text
+                i18n: true
+                hint: "Utilisé pour la liste d'attente, le paiement Mobile Money et les questions."
 
       - name: projects
         label: Projets

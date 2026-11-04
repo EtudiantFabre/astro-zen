@@ -116,6 +116,8 @@ const manifestoWords = splitWords($('[data-reveal-words]'));
    Preloader
    -------------------------------------------------------------------------- */
 function runLoader() {
+  // pas de preloader sur les pages secondaires (formations…)
+  if (!$('#loader')) return Promise.resolve();
   const LOG = FX.loader || [];
   return new Promise((resolve) => {
     const out = $('#loaderLog');
@@ -176,27 +178,42 @@ const SCENES = {
   academy:   { shape: 1, x: 0,    y: -1.4, scale: 1.05, opacity: 0.4,  tilt: 0.5, wave: 1, spinY: 0.03 },
   youtube:   { shape: 0, x: 3.2,  y: 0.6,  scale: 0.55, opacity: 0.45, spinY: 0.14 },
   contact:   { shape: 4, x: 3.1,  y: -0.3, scale: 0.78, opacity: 0.65, alignY: Math.PI * 2, alignX: Math.PI * 2 },
+  // pages formations
+  course:    { shape: 4, x: 3.2,  y: 0.2,  scale: 0.7,  opacity: 0.45, alignY: Math.PI * 2, alignX: Math.PI * 2 },
+  program:   { shape: 2, x: 3.4,  y: 0,    scale: 0.8,  opacity: 0.3,  spinX: 0.35, alignY: Math.PI },
 };
 
 /* --------------------------------------------------------------------------
    Intro
    -------------------------------------------------------------------------- */
 function intro() {
+  const hasLoader = !!$('#loader');
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-  tl.to('.loader__inner', { opacity: 0, y: -40, duration: 0.6, ease: 'power3.in' })
-    .to('.loader', { clipPath: 'inset(0 0 100% 0)', duration: 1.2, ease: 'expo.inOut' }, '-=0.15')
-    .add(() => scene?.intro(3.2), '-=1.0')
+  if (hasLoader) {
+    tl.to('.loader__inner', { opacity: 0, y: -40, duration: 0.6, ease: 'power3.in' })
+      .to('.loader', { clipPath: 'inset(0 0 100% 0)', duration: 1.2, ease: 'expo.inOut' }, '-=0.15');
+  }
+  tl.add(() => scene?.intro(hasLoader ? 3.2 : 2), hasLoader ? '-=1.0' : 0)
     .add(() => {
       document.body.classList.remove('is-loading');
       $('#loader')?.remove();
       lenis.start();
       ScrollTrigger.refresh();
+      scrollToHash();
     })
+    .from('[data-intro]', { opacity: 0, y: 40, duration: 1.2, stagger: 0.08 }, '<')
     .from(heroChars, { yPercent: 118, rotate: 8, duration: 1.5, stagger: 0.05 }, '-=0.7')
     .from('.hero__tag', { opacity: 0, x: -30, duration: 1.2 }, '-=1.1')
     .from('.hero__meta > *, .hero__bottom > *', { opacity: 0, y: 24, duration: 1.2, stagger: 0.07 }, '-=1.2')
     .from('.nav > *', { opacity: 0, y: -20, duration: 1, stagger: 0.06 }, '<')
     .add(startRotator, '-=0.8');
+}
+
+/* arrivée depuis une autre page avec une ancre (ex. /#services) */
+function scrollToHash() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id && document.getElementById(id);
+  if (target) lenis.scrollTo(target, { immediate: true });
 }
 
 /* --------------------------------------------------------------------------
@@ -515,6 +532,11 @@ function reveals() {
     });
   });
 
+  // pages formations : blocs révélés au scroll
+  $$('[data-reveal]').forEach((el) => {
+    gsap.from(el, { y: 50, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+  });
+
   // formations, vidéos
   gsap.from('.academy__row', { y: 40, opacity: 0, stagger: 0.07, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.academy__list', start: 'top 85%' } });
   gsap.from('.video', { y: 70, opacity: 0, stagger: 0.12, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.yt__grid', start: 'top 85%' } });
@@ -711,7 +733,7 @@ function terminal() {
   terminal();
   easterEggs();
 
-  scene?.go(SCENES.hero);
+  scene?.go(SCENES[$('[data-scene]')?.dataset.scene] || SCENES.hero);
   intro();
 
   let rw = window.innerWidth;

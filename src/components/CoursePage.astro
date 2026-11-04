@@ -1,0 +1,205 @@
+---
+// Page de vente d'une formation — commune aux deux langues
+// (src/pages/formations/[slug].astro et src/pages/en/formations/[slug].astro)
+import Layout from "@layouts/Layout.astro";
+import Footer from "./Footer.astro";
+import CourseBuy from "./CourseBuy.astro";
+import { settings, getUi } from "@i18n";
+import { whatsappLink } from "@lib/format";
+import { coursePath, coursesUrl, isAvailable } from "@lib/courses";
+import type { CourseItem, Locale } from "@types";
+
+interface Props {
+  locale: Locale;
+  course: CourseItem;
+}
+
+const { locale, course } = Astro.props;
+const t = getUi(locale).courses;
+const types = getUi(locale).resources.types;
+
+const facts = [
+  { label: t.level, value: course.level },
+  { label: t.duration, value: course.duration },
+  { label: t.format, value: course.format },
+  { label: t.nextCohort, value: course.nextCohort },
+].filter((f) => f.value);
+
+const lessonCount = course.modules.reduce((n, m) => n + m.lessons.length, 0);
+
+// Données structurées (SEO) : formation
+const currency = settings.currency.toUpperCase() === "FCFA" ? "XOF" : settings.currency;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  name: course.title,
+  description: course.tagline,
+  inLanguage: locale,
+  provider: { "@type": "Person", name: settings.author, url: settings.siteUrl },
+  ...(isAvailable(course) && typeof course.price === "number"
+    ? { offers: { "@type": "Offer", price: course.price, priceCurrency: currency, category: "Paid" } }
+    : {}),
+};
+---
+
+<Layout
+  locale={locale}
+  path={coursePath(course.slug)}
+  seo={{ title: `${course.title} — ${types.formation} · ${settings.name}`, description: course.tagline }}
+  structuredData={structuredData}
+>
+  <section class="course-hero" id="top" data-scene="course">
+    <a class="course__back mono" href={coursesUrl(locale)} data-intro>← {t.all}</a>
+    <div class="course__eyebrow mono" data-intro>
+      <span>{types.formation}</span>
+      {course.featured && <span class="service__badge">{getUi(locale).price.popular}</span>}
+    </div>
+    <h1 class="course__title" data-intro>{course.title}</h1>
+    <p class="course__tagline" data-intro>{course.tagline}</p>
+
+    <dl class="course__facts" data-intro>
+      {
+        facts.map((f) => (
+          <div>
+            <dt class="mono">{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div data-intro>
+      <CourseBuy course={course} locale={locale} withNote={false} />
+    </div>
+  </section>
+
+  <section class="course-body" data-scene="program">
+    <div class="course-body__main">
+      <p class="course__lead" data-reveal>{course.description}</p>
+
+      {
+        course.outcomes.length > 0 && (
+          <div class="course-block" data-reveal>
+            <h2 class="course-block__title">{t.outcomes}</h2>
+            <ul class="service__list course__list">
+              {course.outcomes.map((o) => (
+                <li>{o}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        course.modules.length > 0 && (
+          <div class="course-block" data-reveal>
+            <h2 class="course-block__title">
+              {t.program}
+              <span class="mono course-block__meta">
+                {course.modules.length} {t.module.toLowerCase()}s · {lessonCount} {t.lessons}
+              </span>
+            </h2>
+            <ol class="course-modules">
+              {course.modules.map((m, i) => (
+                <li>
+                  <details open={i === 0}>
+                    <summary>
+                      <span class="mono">
+                        {t.module} {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span class="course-modules__title">{m.title}</span>
+                      <span class="mono course-modules__count">
+                        {m.lessons.length} {t.lessons}
+                      </span>
+                    </summary>
+                    <ul>
+                      {m.lessons.map((l) => (
+                        <li>{l}</li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )
+      }
+
+      {
+        course.liveSessions && (
+          <div class="course-block" data-reveal>
+            <h2 class="course-block__title">{t.live}</h2>
+            <p class="course__text">{course.liveSessions}</p>
+          </div>
+        )
+      }
+
+      <div class="course-cols" data-reveal>
+        {
+          course.audience.length > 0 && (
+            <div class="course-block">
+              <h2 class="course-block__title">{t.audience}</h2>
+              <ul class="service__list course__list">
+                {course.audience.map((a) => (
+                  <li>{a}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+        {
+          course.prerequisites.length > 0 && (
+            <div class="course-block">
+              <h2 class="course-block__title">{t.prerequisites}</h2>
+              <ul class="service__list course__list">
+                {course.prerequisites.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+
+      {
+        course.faq.length > 0 && (
+          <div class="course-block" data-reveal>
+            <h2 class="course-block__title">{t.faq}</h2>
+            <div class="course-faq">
+              {course.faq.map((f) => (
+                <details>
+                  <summary>{f.question}</summary>
+                  <p>{f.answer}</p>
+                </details>
+              ))}
+            </div>
+            <a class="service__cta course__ask" href={whatsappLink(course.whatsappMessage)} target="_blank" rel="noopener">
+              {t.question} {t.ask} <span>→</span>
+            </a>
+          </div>
+        )
+      }
+    </div>
+
+    <aside class="course-card service" data-spotlight>
+      <h2 class="course-card__title">{course.title}</h2>
+      <CourseBuy course={course} locale={locale} />
+      {
+        course.includes.length > 0 && (
+          <>
+            <p class="mono course-card__label">{t.includes}</p>
+            <ul class="service__list course__list">
+              {course.includes.map((inc) => (
+                <li>{inc}</li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+    </aside>
+  </section>
+
+  <section class="course-foot">
+    <Footer locale={locale} />
+  </section>
+</Layout>
