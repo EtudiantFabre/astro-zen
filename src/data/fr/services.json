@@ -11,9 +11,8 @@
         "Sécurité et performances : les points critiques",
         "Rapport écrit + échange de 30 min"
       ],
-      "price": 15000,
+      "price": 50,
       "priceFrom": true,
-      "priceSuffix": "",
       "featured": false,
       "cta": "Réserver une review",
       "whatsappMessage": "Bonjour Fabrice, je souhaite une review de code pour mon projet."
@@ -27,9 +26,8 @@
         "Préparation de la soutenance (démo, questions du jury)",
         "Explications pour que tu maîtrises ton projet"
       ],
-      "price": 10000,
+      "price": 40,
       "priceFrom": true,
-      "priceSuffix": "",
       "featured": true,
       "cta": "Préparer ma soutenance",
       "whatsappMessage": "Bonjour Fabrice, je suis étudiant(e) et j'ai besoin d'aide pour mon projet / ma soutenance."
@@ -59,9 +57,7 @@
         "Tableaux de bord et back-offices",
         "Déploiement et mise en production"
       ],
-      "price": null,
       "priceFrom": false,
-      "priceSuffix": "",
       "featured": false,
       "cta": "Discutons de ton projet",
       "whatsappMessage": "Bonjour Fabrice, j'aimerais discuter d'un projet de développement sur mesure."

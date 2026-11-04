@@ -11,9 +11,8 @@
         "Security and performance: the critical issues",
         "Written report + 30-min call"
       ],
-      "price": 15000,
+      "price": 50,
       "priceFrom": true,
-      "priceSuffix": "",
       "featured": false,
       "cta": "Book a review",
       "whatsappMessage": "Hi Fabrice, I'd like a code review for my project."
@@ -27,9 +26,8 @@
         "Defense preparation (demo, jury questions)",
         "Explanations so you truly master your project"
       ],
-      "price": 10000,
+      "price": 40,
       "priceFrom": true,
-      "priceSuffix": "",
       "featured": true,
       "cta": "Prepare my defense",
       "whatsappMessage": "Hi Fabrice, I'm a student and I need help with my project / defense."
@@ -59,9 +57,7 @@
         "Dashboards and back-offices",
         "Deployment and go-live"
       ],
-      "price": null,
       "priceFrom": false,
-      "priceSuffix": "",
       "featured": false,
       "cta": "Let's talk about your project",
       "whatsappMessage": "Hi Fabrice, I'd like to discuss a custom development project."
